@@ -41,6 +41,8 @@
     "mongoose": "^4.5.4",
     "path": "^0.12.7",
     "react": "^15.3.0",
+    "react-bootstrap": "^0.30.2",
+    "react-bootstrap-validation": "^0.1.11",
     "react-date-picker": "^5.3.26",
     "react-dom": "^15.3.0",
     "react-drop-down": "^1.0.2",
