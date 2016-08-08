@@ -52,8 +52,8 @@ export default class Signin extends React.Component {
       <div className="signin-container">
         <h1>Sign in to OneCare</h1>
         <form>
-          <span>username</span><input type="text" onChange={(event) => {this.setState({username: event.target.value})}}></input><br />
-          <span>password</span><input type="password" onChange={(event) => {this.setState({password: event.target.value})}}></input><br />
+          <span className='signin-cat'>username</span><input type="text" onChange={(event) => {this.setState({username: event.target.value})}}></input><br />
+          <span className='signin-cat'>password</span><input type="password" onChange={(event) => {this.setState({password: event.target.value})}}></input><br />
           <div className='signup'>
             <Link to='/signup'> Signup </Link>
           </div>

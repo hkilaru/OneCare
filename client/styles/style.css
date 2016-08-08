@@ -52,9 +52,18 @@ body {
 }
 
 .signin-container {
+  padding-left: 10px;
   border-radius:2px;
   background-color: #FFFFFF;
   border:1px solid black;
+}
+
+.signin-cat {
+  padding-right: 5px;
+}
+
+.invalid {
+  color: red;
 }
 
 .doctor-view-container {
@@ -81,6 +90,10 @@ body {
   background-color: #9DDDFF;
   border:1px solid black;
   display: inline-block;
+}
+
+.signup-container {
+  padding-left: 10px;
 }
 
 /* STYLES FOR CALENDAR IN SCRIPT REMIND VIEW */

@@ -21,36 +21,48 @@ export default class Signup extends React.Component {
   }
 
   submitUser(e) {
-    window.localStorage.removeItem("currentPage");
-    e.preventDefault();
-    var newUser = {
 
-      username: this.state.username,
-      password: this.state.password,
-      address: this.state.address,
-      phone: this.state.phone,
-      zipcode: this.state.zipcode,
-      email: this.state.email
-    };
+    if(!this.state.invalidPhone && !this.state.invalidEmail) {
+      alert("Please input a valid phone number and email");
+    }
+    else if (!this.state.invalidPhone) {
+      alert("Please input a valid phone number")
+    }
+    else if (!this.state.invalidEmail) {
+      alert("Please input a valid email")
+    }
+    else {
+        window.localStorage.removeItem("currentPage");
+      e.preventDefault();
+      var newUser = {
 
-    $.ajax({
-      type: 'POST',
-      url: '/api/signup',
-      dataType: 'json',
-      headers: {
-        'content-type': 'application/json'
-      },
-      data: JSON.stringify(newUser),
-        success: function(data){
-          console.log('user signup successful! This is the data returned: ', data);
-          window.localStorage.setItem("username", data.user.username);
-          window.localStorage.setItem("token", data.token);
-          window.location = "/profile";
+        username: this.state.username,
+        password: this.state.password,
+        address: this.state.address,
+        phone: this.state.phone,
+        zipcode: this.state.zipcode,
+        email: this.state.email
+      };
+
+      $.ajax({
+        type: 'POST',
+        url: '/api/signup',
+        dataType: 'json',
+        headers: {
+          'content-type': 'application/json'
         },
-        error: function(err){
-          console.log('error in signup :', err);
-        }
-    });
+        data: JSON.stringify(newUser),
+          success: function(data){
+            console.log('user signup successful! This is the data returned: ', data);
+            window.localStorage.setItem("username", data.user.username);
+            window.localStorage.setItem("token", data.token);
+            window.location = "/profile";
+          },
+          error: function(err){
+            console.log('error in signup :', err);
+          }
+      });
+    }
   }
 
   validatePhone(phone) {
@@ -71,19 +83,19 @@ export default class Signup extends React.Component {
   render() {
     return (
       <div className= "signup-container">
-        <h1> Signup </h1>
+        <h1> Sign-up </h1>
         <form>
-          <span>username</span><input type="text" onChange={(event) => {this.setState({username: event.target.value})}}/><br/>
-          <span>password</span><input type="password" onChange={(event) => {this.setState({password: event.target.value})}}/><br />
-          <span>address</span><input type="text" onChange={(event) => {this.setState({address: event.target.value})}}/><br/>
-          <span>zip code</span><input type="text" onChange={(event) => {this.setState({zipCode: event.target.value})}}/><br/>
-          <div>phone</div><input type="text" onChange={(event) => {this.setState({phone: event.target.value})
-        this.validatePhone(this.state.phone)}}/> <h6 className={(this.state.invalidPhone ? 'hidden' : '')}> Phone number must be 11 digits</h6>
-          <div>email</div><input type="text" onChange={(event) => {this.setState({email: event.target.value})
-          this.validateEmail(this.state.email)}}/><h6 className={(this.state.invalidEmail ? 'hidden' : '')}> Enter a valid email</h6>
-          <button onClick={ this.submitUser }>Submit</button>
+          <div className='signup-cat'>username</div><input type="text" onChange={(event) => {this.setState({username: event.target.value})}}/><br/>
+          <div className='signup-cat'>password</div><input type="password" onChange={(event) => {this.setState({password: event.target.value})}}/><br />
+          <div className='signup-cat'>address</div><input type="text" onChange={(event) => {this.setState({address: event.target.value})}}/><br/>
+          <div className='signup-cat'>zip code</div><input type="text" onChange={(event) => {this.setState({zipCode: event.target.value})}}/><br/>
+          <div className='signup-cat'>phone</div><input type="text" onChange={(event) => {this.setState({phone: event.target.value})
+        this.validatePhone(this.state.phone)}}/> <h6 className={(this.state.invalidPhone ? 'hidden' : 'invalid')}> Phone number must be 11 digits</h6>
+          <div className='signup-cat'>email</div><input type="text" onChange={(event) => {this.setState({email: event.target.value})
+          this.validateEmail(this.state.email)}}/><h6 className={(this.state.invalidEmail ? 'hidden' : 'invalid')}> Enter a valid email</h6>
+          <button className='signup-cat' onClick={ this.submitUser }>Submit</button>
         </form>
-        <Link to="/signin">Signin </Link>
+        <Link to="/signin">Return to Sign-in </Link>
       </div>
     );
   }
