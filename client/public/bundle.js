@@ -74,7 +74,7 @@
 
 	var _container2 = _interopRequireDefault(_container);
 
-	var _doctorListView = __webpack_require__(244);
+	var _doctorListView = __webpack_require__(243);
 
 	var _doctorListView2 = _interopRequireDefault(_doctorListView);
 
@@ -21564,7 +21564,7 @@
 
 	var _doctorEntryView2 = _interopRequireDefault(_doctorEntryView);
 
-	var _doctorListView = __webpack_require__(244);
+	var _doctorListView = __webpack_require__(243);
 
 	var _doctorListView2 = _interopRequireDefault(_doctorListView);
 
@@ -37553,11 +37553,11 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _navigate = __webpack_require__(243);
+	var _navigate = __webpack_require__(245);
 
 	var _navigate2 = _interopRequireDefault(_navigate);
 
-	var _doctorListView = __webpack_require__(244);
+	var _doctorListView = __webpack_require__(243);
 
 	var _doctorListView2 = _interopRequireDefault(_doctorListView);
 
@@ -37584,7 +37584,9 @@
 	      phone: "",
 	      email: "",
 	      address: "",
-	      specialty: ""
+	      specialty: "",
+	      validPhone: false,
+	      validSpecialty: false
 	    };
 	    _this.handleChange = _this.handleChange.bind(_this);
 	    _this.submitNewDoctor = _this.submitNewDoctor.bind(_this);
@@ -37596,37 +37598,61 @@
 	    value: function handleChange(event) {
 	      var stateVal = event.target.id;
 	      if (stateVal === "name") {
-	        this.setState({ name: event.target.value });
+	        this.setState({ name: event.target.value, validName: true });
 	      } else if (stateVal === "phone") {
-	        this.setState({ phone: event.target.value });
+	        this.setState({ phone: event.target.value, validPhone: event.target.value.match(/\d/g).length === 11
+	        });
 	      } else if (stateVal === "email") {
 	        this.setState({ email: event.target.value });
 	      } else if (stateVal === "address") {
 	        this.setState({ address: event.target.value });
 	      } else if (stateVal === "specialty") {
-	        this.setState({ specialty: event.target.value });
+	        this.setState({ specialty: event.target.value, validSpecialty: true });
 	      }
 	    }
 	  }, {
 	    key: 'submitNewDoctor',
-	    value: function submitNewDoctor() {
-	      var toSubmit = { "username": window.localStorage.username, "doc": this.state };
+	    value: function submitNewDoctor(e) {
+	      e.preventDefault();
+	      if (!this.state.name.length && !this.state.validPhone && !this.state.validSpecialty) {
+	        alert("Please correct the following fields: name, phone, specialty");
+	      } else if (!this.state.validPhone && !this.state.validSpecialty) {
+	        alert("Please enter a valid phone and specialty");
+	      } else if (!this.state.name.length && !this.state.validSpecialty) {
+	        alert("Please enter a valid name and specialty");
+	      } else if (!this.state.name.length && !this.state.validPhone) {
+	        alert("Please enter a valid name and phone");
+	      } else if (!this.state.name.length) {
+	        alert("Please enter a name");
+	      } else if (!this.state.validPhone) {
+	        alert("Please enter a valid phone");
+	      } else if (!this.state.validSpecialty) {
+	        alert("Please enter a specialty");
+	      } else {
+	        var toSubmit = { "username": window.localStorage.username, "doc": {
+	            name: this.state.name,
+	            phone: this.state.phone,
+	            email: this.state.email,
+	            address: this.state.address,
+	            specialty: this.state.specialty
+	          } };
 
-	      _jquery2.default.ajax({
-	        type: "POST",
-	        url: "/api/doctor/add",
-	        headers: {
-	          "content-type": "application/json"
-	        },
-	        data: JSON.stringify(toSubmit),
-	        success: function success(res) {
-	          console.log(res, "has been added");
-	          _doctorListView2.default.getDocs();
-	        },
-	        error: function error(err) {
-	          console.error("Doctor not registered: ", err);
-	        }
-	      });
+	        _jquery2.default.ajax({
+	          type: "POST",
+	          url: "/api/doctor/add",
+	          headers: {
+	            "content-type": "application/json"
+	          },
+	          data: JSON.stringify(toSubmit),
+	          success: function success(res) {
+	            console.log(res, "has been added");
+	            _doctorListView2.default.getDocs();
+	          },
+	          error: function error(err) {
+	            console.error("Doctor not registered: ", err);
+	          }
+	        });
+	      }
 	    }
 	  }, {
 	    key: 'render',
@@ -37638,7 +37664,7 @@
 	        _react2.default.createElement(
 	          'h2',
 	          null,
-	          'Input a new doctor!'
+	          'Input a new doctor'
 	        ),
 	        _react2.default.createElement(
 	          'form',
@@ -37655,6 +37681,11 @@
 	            'Phone'
 	          ),
 	          _react2.default.createElement('input', { id: 'phone', type: 'text', onChange: this.handleChange }),
+	          _react2.default.createElement(
+	            'h6',
+	            { className: this.state.validPhone ? 'hidden' : 'invalid' },
+	            ' Phone number must be 11 digits'
+	          ),
 	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
 	            'div',
@@ -37723,116 +37754,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactDom = __webpack_require__(35);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _reactRouter = __webpack_require__(177);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Navigate = function (_React$Component) {
-	  _inherits(Navigate, _React$Component);
-
-	  function Navigate(props) {
-	    _classCallCheck(this, Navigate);
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Navigate).call(this, props));
-
-	    _this.state = {
-	      "username": window.localStorage.username
-	    };
-
-	    return _this;
-	  }
-
-	  _createClass(Navigate, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'navbar-container' },
-	        _react2.default.createElement(
-	          'h1',
-	          { className: 'title' },
-	          'Welcome to OneCare, ',
-	          this.state.username,
-	          '!'
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'navbar-button navbar-home' },
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/profile' },
-	            ' Profile '
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'navbar-button navbar-enter-doctors' },
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/newdoctor' },
-	            ' Enter New Doctor '
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'navbar-button navbar-recommend-doctors' },
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/recommend' },
-	            ' Physician Recommender '
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'navbar-enter-doctors right logout', onClick: function onClick() {
-	              window.localStorage.removeItem("username");window.localStorage.removeItem("token");
-	            } },
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/signin' },
-	            ' Logout '
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Navigate;
-	}(_react2.default.Component);
-
-	exports.default = Navigate;
-
-/***/ },
-/* 244 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _doctorView = __webpack_require__(245);
+	var _doctorView = __webpack_require__(244);
 
 	var _doctorView2 = _interopRequireDefault(_doctorView);
 
-	var _navigate = __webpack_require__(243);
+	var _navigate = __webpack_require__(245);
 
 	var _navigate2 = _interopRequireDefault(_navigate);
 
@@ -37907,7 +37833,7 @@
 	exports.default = DoctorListView;
 
 /***/ },
-/* 245 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37922,7 +37848,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _doctorListView = __webpack_require__(244);
+	var _doctorListView = __webpack_require__(243);
 
 	var _doctorListView2 = _interopRequireDefault(_doctorListView);
 
@@ -38032,6 +37958,111 @@
 	exports.default = DoctorView;
 
 /***/ },
+/* 245 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(35);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _reactRouter = __webpack_require__(177);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Navigate = function (_React$Component) {
+	  _inherits(Navigate, _React$Component);
+
+	  function Navigate(props) {
+	    _classCallCheck(this, Navigate);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Navigate).call(this, props));
+
+	    _this.state = {
+	      "username": window.localStorage.username
+	    };
+
+	    return _this;
+	  }
+
+	  _createClass(Navigate, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'navbar-container' },
+	        _react2.default.createElement(
+	          'h1',
+	          { className: 'title' },
+	          'Welcome to OneCare, ',
+	          this.state.username,
+	          '!'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'navbar-button navbar-home' },
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/profile' },
+	            ' Profile '
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'navbar-button navbar-enter-doctors' },
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/newdoctor' },
+	            ' Enter New Doctor '
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'navbar-button navbar-recommend-doctors' },
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/recommend' },
+	            ' Physician Recommender '
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'navbar-enter-doctors right logout', onClick: function onClick() {
+	              window.localStorage.removeItem("username");window.localStorage.removeItem("token");
+	            } },
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/signin' },
+	            ' Logout '
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Navigate;
+	}(_react2.default.Component);
+
+	exports.default = Navigate;
+
+/***/ },
 /* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -38055,7 +38086,7 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _navigate = __webpack_require__(243);
+	var _navigate = __webpack_require__(245);
 
 	var _navigate2 = _interopRequireDefault(_navigate);
 
@@ -41015,7 +41046,7 @@
 
 	var _reactRouter = __webpack_require__(177);
 
-	var _navigate = __webpack_require__(243);
+	var _navigate = __webpack_require__(245);
 
 	var _navigate2 = _interopRequireDefault(_navigate);
 
@@ -67641,7 +67672,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _navigate = __webpack_require__(243);
+	var _navigate = __webpack_require__(245);
 
 	var _navigate2 = _interopRequireDefault(_navigate);
 
@@ -67676,7 +67707,7 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _navigate = __webpack_require__(243);
+	var _navigate = __webpack_require__(245);
 
 	var _navigate2 = _interopRequireDefault(_navigate);
 
