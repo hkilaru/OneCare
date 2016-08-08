@@ -30,7 +30,7 @@ var dbFunc = {
 		var convertToCronTime = function(time) {
 			var hour = Number(time.split('').splice(0, time.indexOf(":")).join(''));
 			var minuteString = time.split('').splice(time.indexOf(":") + 1, time.indexOf(":") + 1).join('');
-			if(time[time.length-2] === "P"){
+			if(time[time.length-2] === "P" && (time[0] + time[1] !== '12')){
 				hour +=12;
 			}
 			var hourString = hour.toString();
