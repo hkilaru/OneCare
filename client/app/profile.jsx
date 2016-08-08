@@ -83,36 +83,38 @@ export default class Profile extends React.Component {
     return (
       <div>
       <Navigate />
-      <h1> My Profile </h1>
-          <div className="allScripts">
-      <button onClick={this.openModal}> Add New Prescription </button>
+        <div className='profile-container'>
+        <h1> My Profile </h1>
+            <div className="allScripts">
+        <button onClick={this.openModal}> Add New Prescription </button>
 
-      <Modal
-        isOpen={this.state.modalIsOpen}
-        shouldCloseOnOverlayClick={false}
-        >
-          <ScriptRemind />
-          <button onClick={this.closeModal}>Exit</button>
-      </Modal>
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          shouldCloseOnOverlayClick={false}
+          >
+            <ScriptRemind />
+            <button onClick={this.closeModal}>Exit</button>
+        </Modal>
 
-      <h2> Prescriptions </h2>
+        <h2> Prescriptions </h2>
 
-             {
-              this.state.scripts.map((script, idx) => {
-                return (
-                  <ul className="User-Scripts" key={idx}>
-                  <div className="single-script">
-                    <li> <span className="user-script"> Name: </span> {script.name} </li>
-                    <li> <span className="user-script"> Dosage: </span> {script.dosage} </li>
-                    <li> <span className="user-script"> Frequency: </span> {script.frequency} </li>
-                    <li> <span className="user-script"> Refill Date: </span> {script.refill} </li>
-                  </div>
-                 <button onClick={this.deleteReminder.bind(this, idx)} value={idx}>Delete</button>
-                 </ul>
-               )
-              }, this)
-            }
-          </div>
+               {
+                this.state.scripts.map((script, idx) => {
+                  return (
+                    <ul className="User-Scripts" key={idx}>
+                    <div className="single-script">
+                      <li> <span className="user-script"> Name: </span> {script.name} </li>
+                      <li> <span className="user-script"> Dosage: </span> {script.dosage} </li>
+                      <li> <span className="user-script"> Frequency: </span> {script.frequency} </li>
+                      <li> <span className="user-script"> Refill Date: </span> {script.refill} </li>
+                    </div>
+                   <button onClick={this.deleteReminder.bind(this, idx)} value={idx}>Delete</button>
+                   </ul>
+                 )
+                }, this)
+              }
+            </div>
+        </div>
       </div>
     );
   }

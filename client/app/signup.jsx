@@ -32,10 +32,9 @@ export default class Signup extends React.Component {
       alert("Please input a valid email")
     }
     else {
-        window.localStorage.removeItem("currentPage");
+      window.localStorage.removeItem("currentPage");
       e.preventDefault();
       var newUser = {
-
         username: this.state.username,
         password: this.state.password,
         address: this.state.address,
@@ -59,6 +58,7 @@ export default class Signup extends React.Component {
             window.location = "/profile";
           },
           error: function(err){
+            alert("Sorry! That username already exists");
             console.log('error in signup :', err);
           }
       });

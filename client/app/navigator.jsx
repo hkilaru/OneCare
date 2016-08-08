@@ -93,11 +93,13 @@ export default class Navigator extends React.Component {
     return (
       <div className="navbar-container">
         <h1 className="title">Welcome to OneCare!</h1>
-        <div className="navbar-button navbar-view-doctors" onClick={this.viewDocs}> View Your Doctors </div>
-        <div className="navbar-button navbar-enter-doctors" onClick={this.enterDocs}> Enter New Doctor </div>
-        <div className="navbar-button navbar-enter-doctors" onClick={this.scriptReminder}> Prescription Reminder </div>
-        <div className="navbar-button navbar-enter-doctors" onClick={this.enterSympsons}> Physician Recommender </div>
-        <div className="navbar-enter-doctors right logout" onClick={() => {window.localStorage.removeItem("username"); window.localStorage.removeItem("token"); window.localStorage.removeItem("currentPage"); location.reload()}}> Logout </div>
+        <div className='navbar-button-container'>
+          <div className="navbar-button navbar-view-doctors" onClick={this.viewDocs}> View Your Doctors </div>
+          <div className="navbar-button navbar-enter-doctors" onClick={this.enterDocs}> Enter New Doctor </div>
+          <div className="navbar-button navbar-enter-doctors" onClick={this.scriptReminder}> Prescription Reminder </div>
+          <div className="navbar-button navbar-enter-doctors" onClick={this.enterSympsons}> Physician Recommender </div>
+          <div className="navbar-enter-doctors right logout" onClick={() => {window.localStorage.removeItem("username"); window.localStorage.removeItem("token"); window.localStorage.removeItem("currentPage"); location.reload()}}> Logout </div>
+        </div>
       </div>
       )
   }

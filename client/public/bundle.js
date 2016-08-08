@@ -21698,30 +21698,34 @@
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'navbar-button navbar-view-doctors', onClick: this.viewDocs },
-	          ' View Your Doctors '
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'navbar-button navbar-enter-doctors', onClick: this.enterDocs },
-	          ' Enter New Doctor '
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'navbar-button navbar-enter-doctors', onClick: this.scriptReminder },
-	          ' Prescription Reminder '
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'navbar-button navbar-enter-doctors', onClick: this.enterSympsons },
-	          ' Physician Recommender '
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'navbar-enter-doctors right logout', onClick: function onClick() {
-	              window.localStorage.removeItem("username");window.localStorage.removeItem("token");window.localStorage.removeItem("currentPage");location.reload();
-	            } },
-	          ' Logout '
+	          { className: 'navbar-button-container' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'navbar-button navbar-view-doctors', onClick: this.viewDocs },
+	            ' View Your Doctors '
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'navbar-button navbar-enter-doctors', onClick: this.enterDocs },
+	            ' Enter New Doctor '
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'navbar-button navbar-enter-doctors', onClick: this.scriptReminder },
+	            ' Prescription Reminder '
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'navbar-button navbar-enter-doctors', onClick: this.enterSympsons },
+	            ' Physician Recommender '
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'navbar-enter-doctors right logout', onClick: function onClick() {
+	                window.localStorage.removeItem("username");window.localStorage.removeItem("token");window.localStorage.removeItem("currentPage");location.reload();
+	              } },
+	            ' Logout '
+	          )
 	        )
 	      );
 	    }
@@ -37382,7 +37386,6 @@
 	        window.localStorage.removeItem("currentPage");
 	        e.preventDefault();
 	        var newUser = {
-
 	          username: this.state.username,
 	          password: this.state.password,
 	          address: this.state.address,
@@ -37406,6 +37409,7 @@
 	            window.location = "/profile";
 	          },
 	          error: function error(err) {
+	            alert("Sorry! That username already exists");
 	            console.log('error in signup :', err);
 	          }
 	        });
@@ -41051,7 +41055,9 @@
 	      "date": date,
 	      "reminderTime": null,
 	      "scheduleFreq": "1x",
-	      "scheduleDayWeek": "day"
+	      "scheduleDayWeek": "day",
+	      "invalidName": false,
+	      "invalidReminderTime": false
 	    };
 	    var date = new Date();
 	    _this.updateDrugName = _this.updateDrugName.bind(_this);
@@ -41070,7 +41076,8 @@
 	    key: 'updateDrugName',
 	    value: function updateDrugName(event) {
 	      this.setState({
-	        currentDrug: event.target.value
+	        currentDrug: event.target.value,
+	        invalidName: true
 	      });
 	    }
 	  }, {
@@ -41116,38 +41123,48 @@
 	    value: function handleReminderTime(time) {
 	      console.log("handleReminderTime called with", (0, _moment2.default)(time).format('LT'));
 	      this.setState({
-	        "reminderTime": (0, _moment2.default)(time).format('LT')
+	        "reminderTime": (0, _moment2.default)(time).format('LT'),
+	        "invalidReminderTime": true
 	      });
 	    }
 	  }, {
 	    key: 'submitForm',
 	    value: function submitForm() {
-	      var script = {
-	        "name": this.state.currentDrug,
-	        "dosage": this.state.dosageAmt + ' ' + this.state.dosageMeasure,
-	        "refill": this.state.date,
-	        "frequency": this.state.scheduleFreq + ' per ' + this.state.scheduleDayWeek,
-	        "reminderTime": this.state.reminderTime,
-	        "username": window.localStorage.username
-	      };
-	      console.log("submitForm called for: ", script);
 
-	      _jquery2.default.ajax({
-	        type: 'POST',
-	        url: '/api/reminder/add',
-	        dataType: 'json',
-	        headers: {
-	          'Content-Type': 'application/json'
-	        },
-	        data: JSON.stringify(script),
-	        success: function success(data) {
-	          alert("Your prescription was saved.");
-	          console.log('A reminder was set for: ', data);
-	        },
-	        error: function error(err) {
-	          console.log('Reminder not set: ', err);
-	        }
-	      });
+	      if (!this.state.invalidName && !this.state.invalidReminderTime) {
+	        alert("Please enter a prescription name and reminder time");
+	      } else if (!this.state.invalidName) {
+	        alert("Please enter a prescription name");
+	      } else if (!this.state.invalidReminderTime) {
+	        alert("Please enter a reminder time");
+	      } else {
+	        var script = {
+	          "name": this.state.currentDrug,
+	          "dosage": this.state.dosageAmt + ' ' + this.state.dosageMeasure,
+	          "refill": this.state.date,
+	          "frequency": this.state.scheduleFreq + ' per ' + this.state.scheduleDayWeek,
+	          "reminderTime": this.state.reminderTime,
+	          "username": window.localStorage.username
+	        };
+	        console.log("submitForm called for: ", script);
+
+	        _jquery2.default.ajax({
+	          type: 'POST',
+	          url: '/api/reminder/add',
+	          dataType: 'json',
+	          headers: {
+	            'Content-Type': 'application/json'
+	          },
+	          data: JSON.stringify(script),
+	          success: function success(data) {
+	            alert("Your prescription was saved.");
+	            console.log('A reminder was set for: ', data);
+	          },
+	          error: function error(err) {
+	            console.log('Reminder not set: ', err);
+	          }
+	        });
+	      }
 	    }
 	  }, {
 	    key: 'render',
@@ -41173,7 +41190,12 @@
 	          _react2.default.createElement('input', {
 	            onChange: this.updateDrugName,
 	            placeholder: 'Name'
-	          })
+	          }),
+	          _react2.default.createElement(
+	            'h8',
+	            { className: 'required' },
+	            ' (required) '
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
@@ -41274,14 +41296,19 @@
 	            null,
 	            ' Reminder Time '
 	          ),
-	          _react2.default.createElement(_reactKronos2.default, { time: this.state.reminderTime, value: '', placeholder: "Click to select a time", onChangeDateTime: this.handleReminderTime })
+	          _react2.default.createElement(_reactKronos2.default, { time: this.state.reminderTime, value: '', placeholder: "Click to select a time", onChangeDateTime: this.handleReminderTime }),
+	          _react2.default.createElement(
+	            'h8',
+	            { className: 'required' },
+	            ' (required) '
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          null,
 	          _react2.default.createElement(
 	            'button',
-	            { className: 'remindBtn', onClick: this.submitForm },
+	            { onClick: this.submitForm },
 	            ' Remind Me '
 	          )
 	        )
@@ -67762,103 +67789,107 @@
 	        null,
 	        _react2.default.createElement(_navigate2.default, null),
 	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          ' My Profile '
-	        ),
-	        _react2.default.createElement(
 	          'div',
-	          { className: 'allScripts' },
+	          { className: 'profile-container' },
 	          _react2.default.createElement(
-	            'button',
-	            { onClick: this.openModal },
-	            ' Add New Prescription '
+	            'h1',
+	            null,
+	            ' My Profile '
 	          ),
 	          _react2.default.createElement(
-	            _reactModal2.default,
-	            {
-	              isOpen: this.state.modalIsOpen,
-	              shouldCloseOnOverlayClick: false
-	            },
-	            _react2.default.createElement(_scriptRemind2.default, null),
+	            'div',
+	            { className: 'allScripts' },
 	            _react2.default.createElement(
 	              'button',
-	              { onClick: this.closeModal },
-	              'Exit'
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'h2',
-	            null,
-	            ' Prescriptions '
-	          ),
-	          this.state.scripts.map(function (script, idx) {
-	            return _react2.default.createElement(
-	              'ul',
-	              { className: 'User-Scripts', key: idx },
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'single-script' },
-	                _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  ' ',
-	                  _react2.default.createElement(
-	                    'span',
-	                    { className: 'user-script' },
-	                    ' Name: '
-	                  ),
-	                  ' ',
-	                  script.name,
-	                  ' '
-	                ),
-	                _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  ' ',
-	                  _react2.default.createElement(
-	                    'span',
-	                    { className: 'user-script' },
-	                    ' Dosage: '
-	                  ),
-	                  ' ',
-	                  script.dosage,
-	                  ' '
-	                ),
-	                _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  ' ',
-	                  _react2.default.createElement(
-	                    'span',
-	                    { className: 'user-script' },
-	                    ' Frequency: '
-	                  ),
-	                  ' ',
-	                  script.frequency,
-	                  ' '
-	                ),
-	                _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  ' ',
-	                  _react2.default.createElement(
-	                    'span',
-	                    { className: 'user-script' },
-	                    ' Refill Date: '
-	                  ),
-	                  ' ',
-	                  script.refill,
-	                  ' '
-	                )
-	              ),
+	              { onClick: this.openModal },
+	              ' Add New Prescription '
+	            ),
+	            _react2.default.createElement(
+	              _reactModal2.default,
+	              {
+	                isOpen: this.state.modalIsOpen,
+	                shouldCloseOnOverlayClick: false
+	              },
+	              _react2.default.createElement(_scriptRemind2.default, null),
 	              _react2.default.createElement(
 	                'button',
-	                { onClick: _this2.deleteReminder.bind(_this2, idx), value: idx },
-	                'Delete'
+	                { onClick: this.closeModal },
+	                'Exit'
 	              )
-	            );
-	          }, this)
+	            ),
+	            _react2.default.createElement(
+	              'h2',
+	              null,
+	              ' Prescriptions '
+	            ),
+	            this.state.scripts.map(function (script, idx) {
+	              return _react2.default.createElement(
+	                'ul',
+	                { className: 'User-Scripts', key: idx },
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'single-script' },
+	                  _react2.default.createElement(
+	                    'li',
+	                    null,
+	                    ' ',
+	                    _react2.default.createElement(
+	                      'span',
+	                      { className: 'user-script' },
+	                      ' Name: '
+	                    ),
+	                    ' ',
+	                    script.name,
+	                    ' '
+	                  ),
+	                  _react2.default.createElement(
+	                    'li',
+	                    null,
+	                    ' ',
+	                    _react2.default.createElement(
+	                      'span',
+	                      { className: 'user-script' },
+	                      ' Dosage: '
+	                    ),
+	                    ' ',
+	                    script.dosage,
+	                    ' '
+	                  ),
+	                  _react2.default.createElement(
+	                    'li',
+	                    null,
+	                    ' ',
+	                    _react2.default.createElement(
+	                      'span',
+	                      { className: 'user-script' },
+	                      ' Frequency: '
+	                    ),
+	                    ' ',
+	                    script.frequency,
+	                    ' '
+	                  ),
+	                  _react2.default.createElement(
+	                    'li',
+	                    null,
+	                    ' ',
+	                    _react2.default.createElement(
+	                      'span',
+	                      { className: 'user-script' },
+	                      ' Refill Date: '
+	                    ),
+	                    ' ',
+	                    script.refill,
+	                    ' '
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'button',
+	                  { onClick: _this2.deleteReminder.bind(_this2, idx), value: idx },
+	                  'Delete'
+	                )
+	              );
+	            }, this)
+	          )
 	        )
 	      );
 	    }
