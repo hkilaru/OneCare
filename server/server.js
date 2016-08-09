@@ -38,6 +38,12 @@ app.post('/api/reminder/add', function(req, res, next) {
 	dbHelpers.addScript(newScript, res, next);
 });
 
+app.post('/api/reminder/delete', function(req, res, next){
+  console.log("request received at deleteScript");
+  var reminderID = req.body.reminderID;
+  dbHelpers.deleteReminder(reminderID, next);
+})
+
 app.post('/api/script/find', function(req, res) {
 	var username = req.body.username;
 	dbHelpers.getScripts( username, res);

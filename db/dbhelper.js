@@ -49,6 +49,7 @@ var dbFunc = {
 					res.send(new Error("script not added to user document"));
 				}
 				//call set reminder function
+				console.log("set reminder about to be called");
 				this.setReminder(script.username, newScript._id, message, time, next); //need to format time in ISO format
 			}.bind(this));
 		}.bind(this));
@@ -229,14 +230,15 @@ var dbFunc = {
 					   { schedules:
 					      [ { code_name: 'test_worker',
 					          payload: JSON.stringify({phone: phoneNum, message: message}),
-					          start_at: new Date().toISOString(), //need to change the date to the ISO version new Date('09 August 2016 15:05').toISOString()
-					          run_every: 86400,
+					          start_at: '2016-08-09T20:30:00.196Z', //need to change the date to the ISO version new Date('09 August 2016 15:05').toISOString()
+					          run_every: 60,
 					          run_times: 10 } ] },
 					  				json: true };
 
 					request(options, function (error, response, body) {
 					  if (error) throw new Error(error);
-					  console.log(body);
+						console.log("RESPONSE", response);
+						next("reminder has been saved", response);
 					});
 
 	});
