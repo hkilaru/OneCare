@@ -9,6 +9,15 @@ var cron = require('cron');
 var cronJob = cron.CronJob;
 var CronJobManager = require('cron-job-manager')
 var reminderManager = new CronJobManager();
+var http = require('http');
+var request = require("request");
+
+//
+//
+// var iron_worker = require('iron_worker');
+// var worker = new iron_worker.Client({token: "0DHLF4oFfGZIbMcdg2W6", project_id: "57a8f721bc022f00078da23f"});
+
+
 
 
 var dbFunc = {
@@ -26,20 +35,7 @@ var dbFunc = {
 		}
 		*/
 		var message = "Time to take your " + script.name + ' (' + script.dosage + ')!';
-
-		var convertToCronTime = function(time) {
-			var hour = Number(time.split('').splice(0, time.indexOf(":")).join(''));
-			var minuteString = time.split('').splice(time.indexOf(":") + 1, time.indexOf(":") + 1).join('');
-			if(time[time.length-2] === "P" && (time[0] + time[1] !== '12')){
-				hour +=12;
-			}
-			var hourString = hour.toString();
-			var cronConvert = minuteString + ' ' + hourString + ' ' + '* * *';
-			return cronConvert;
-		};
-
-		var cronTime = convertToCronTime(script.reminderTime);
-
+		var time = '';
 		var newScript = new Model.script(script);
 		console.log('newScript: ', newScript);
 		newScript.save(function(err){
@@ -52,10 +48,8 @@ var dbFunc = {
 				if(err){
 					res.send(new Error("script not added to user document"));
 				}
-
 				//call set reminder function
-				this.setReminder(script.username, newScript._id, message, cronTime, next);
-
+				this.setReminder(script.username, newScript._id, message, time, next); //need to format time in ISO format
 			}.bind(this));
 		}.bind(this));
 
@@ -199,6 +193,21 @@ var dbFunc = {
 	},
 
 	setReminder: function(username, scriptID, message, time, next) {
+		/* Example data object for request
+
+		{
+    "schedules": [
+        {
+        "code_name": "test_worker",
+        "payload": "{'phone':'+18108414628','message':'from POSTMAN'}", <--- try JSON.stringify()
+        "start_at": "2016-08-09T18:43:00.196Z", --> new Date().toISOString()
+        "run_every": 86400,
+        "run_times": 10
+        }
+    ]
+	}
+		*/
+
 		console.log("sendReminder called for", username, "with the message:", message);
 		// look up user object and find their phone number
 				Model.user.findOne({"username": username}, function(err, user){
@@ -207,25 +216,29 @@ var dbFunc = {
 					}
 					phoneNum = "+" + user.phone;
 					console.log("Number on file", phoneNum);
-					//with manager
-					//manager.add('next_job', '0 40 * * * *', function() { console.log('tick...')});
-					console.log("arguments...", scriptID.toString(), "at", time);
-					reminderManager.add(scriptID.toString(), time, function() {
-						console.log('this was the proper format!');
-						client.sendMessage({
-							to: phoneNum,
-							from:"+16462332065",
-							body: message,
-						}, function( err, data) {
-							if(err){
-								console.log("CronJob not set: ", err);
-							}
-							next("Message sent.");
-						});
-					}, {"start": true});
+					console.log("payload", JSON.stringify({phone: phoneNum, message: message}));
 
-					console.log("reminderManager", reminderManager);
-					next("Reminder successfully set");
+					var options = { method: 'POST',
+					  url: 'http://worker-aws-us-east-1.iron.io/2/projects/57a8f721bc022f00078da23f/schedules',
+					  qs: { oauth: '0DHLF4oFfGZIbMcdg2W6' },
+					  headers:
+					   { 'cache-control': 'no-cache',
+					     'content-type': 'application/json',
+					     oauth: '0DHLF4oFfGZIbMcdg2W6' },
+					  body:
+					   { schedules:
+					      [ { code_name: 'test_worker',
+					          payload: JSON.stringify({phone: phoneNum, message: message}),
+					          start_at: new Date().toISOString(), //need to change the date to the ISO version new Date('09 August 2016 15:05').toISOString()
+					          run_every: 86400,
+					          run_times: 10 } ] },
+					  				json: true };
+
+					request(options, function (error, response, body) {
+					  if (error) throw new Error(error);
+					  console.log(body);
+					});
+
 	});
 },
 

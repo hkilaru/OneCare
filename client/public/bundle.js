@@ -41114,6 +41114,7 @@
 	  }, {
 	    key: 'handleRefillDate',
 	    value: function handleRefillDate(date) {
+	      console.log("actual date format", date);
 	      console.log("selected date", date);
 	      this.setState({
 	        "date": date
@@ -41152,6 +41153,7 @@
 	  }, {
 	    key: 'handleReminderTime',
 	    value: function handleReminderTime(time) {
+	      console.log("actual time format", time);
 	      console.log("handleReminderTime called with", (0, _moment2.default)(time).format('LT'));
 	      this.setState({
 	        "reminderTime": (0, _moment2.default)(time).format('LT'),
@@ -41192,6 +41194,7 @@
 	            console.log('A reminder was set for: ', data);
 	          },
 	          error: function error(err) {
+	            alert("Your prescription was saved.");
 	            console.log('Reminder not set: ', err);
 	          }
 	        });

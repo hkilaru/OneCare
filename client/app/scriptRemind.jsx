@@ -45,6 +45,7 @@ export default class ScriptRemindView extends React.Component {
     }
 
     handleRefillDate(date) {
+      console.log("actual date format", date);
       console.log("selected date", date);
       this.setState({
         "date": date
@@ -81,6 +82,7 @@ export default class ScriptRemindView extends React.Component {
     }
 
     handleReminderTime(time){
+      console.log("actual time format", time);
       console.log("handleReminderTime called with", moment(time).format('LT'));
       this.setState({
         "reminderTime": moment(time).format('LT'),
@@ -124,6 +126,7 @@ export default class ScriptRemindView extends React.Component {
               console.log('A reminder was set for: ', data);
             },
             error: function(err){
+              alert("Your prescription was saved.");
               console.log('Reminder not set: ', err);
             }
           });

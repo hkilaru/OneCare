@@ -25,6 +25,7 @@ app.listen(process.env.PORT || 3000, function(){
   console.log('Server is running');
 });
 
+
 app.get('/fuckDan', function(req, res){
   console.log('request received at /fuckDan');
   res.send(JSON.stringify({"message": "Fuck Dan"}));
