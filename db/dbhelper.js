@@ -247,7 +247,7 @@ deleteReminder: function(scriptID, next) {
 		if(err){next(new Error(err))}
 		console.log("ironID: ", script.reminderID);
 		var ironID = script.reminderID;
-		Model.script.remove({"_id": reminderID}, function(err){
+		Model.script.remove({"_id": scriptID}, function(err){
 			if(err){
 				next("reminder not deleted", err);
 			}
