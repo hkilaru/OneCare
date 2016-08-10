@@ -88,7 +88,7 @@ app.post('/api/script/remind', function(req, res, next) {
   //phone will not be a parameter in final version, we'll look it up based on the username
   var phone = req.body.phone;
   var time = req.body.time;
-  dbHelpers.setReminder(username, message, phone, time, next);
+  dbHelpers.setReminder(username, message, phone, time, res);
 });
 
 app.post('/api/symptomEntry/add', function(req, res) {
