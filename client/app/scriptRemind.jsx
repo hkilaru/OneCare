@@ -82,10 +82,9 @@ export default class ScriptRemindView extends React.Component {
     }
 
     handleReminderTime(time){
-      console.log("actual time format", time);
-      console.log("handleReminderTime called with", moment(time).format('LT'));
+      console.log("to IRON MAN format", new Date(moment(time).format()).toISOString());
       this.setState({
-        "reminderTime": moment(time).format('LT'),
+        "reminderTime": new Date(moment(time).format()).toISOString(),
         "invalidReminderTime": true
       });
     }

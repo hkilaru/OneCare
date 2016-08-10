@@ -41249,10 +41249,9 @@
 	  }, {
 	    key: 'handleReminderTime',
 	    value: function handleReminderTime(time) {
-	      console.log("actual time format", time);
-	      console.log("handleReminderTime called with", (0, _moment2.default)(time).format('LT'));
+	      console.log("to IRON MAN format", new Date((0, _moment2.default)(time).format()).toISOString());
 	      this.setState({
-	        "reminderTime": (0, _moment2.default)(time).format('LT'),
+	        "reminderTime": new Date((0, _moment2.default)(time).format()).toISOString(),
 	        "invalidReminderTime": true
 	      });
 	    }

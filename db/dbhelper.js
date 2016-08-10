@@ -30,12 +30,11 @@ var dbFunc = {
 				"dosage": '1 tablet',
 				"refill": '08-17-2016',
 				"frequency": '2x per day',
-				"reminderTime": '10:00 AM',
+				"reminderTime": '2016-08-10T20:00:00.000Z',
 				"username": 'harish'
 		}
 		*/
 		var message = "Time to take your " + script.name + ' (' + script.dosage + ')!';
-		var time = '';
 		var newScript = new Model.script(script);
 		console.log('newScript: ', newScript);
 		newScript.save(function(err){
@@ -50,7 +49,7 @@ var dbFunc = {
 				}
 				//call set reminder function
 				console.log("set reminder about to be called");
-				this.setReminder(script.username, newScript._id, message, time, next); //need to format time in ISO format
+				this.setReminder(script.username, newScript._id, message, script.reminderTime, next); //need to format time in ISO format
 			}.bind(this));
 		}.bind(this));
 
@@ -204,26 +203,31 @@ var dbFunc = {
 					console.log("Number on file", phoneNum);
 					console.log("payload", JSON.stringify({phone: phoneNum, message: message}));
 
-					var options = { method: 'POST',
+					var options = {
+						method: 'POST',
 					  url: 'http://worker-aws-us-east-1.iron.io/2/projects/57a8f721bc022f00078da23f/schedules',
 					  qs: { oauth: '0DHLF4oFfGZIbMcdg2W6' },
 					  headers:
 					   { 'cache-control': 'no-cache',
 					     'content-type': 'application/json',
-					     oauth: '0DHLF4oFfGZIbMcdg2W6' },
+					     oauth: '0DHLF4oFfGZIbMcdg2W6'
+						 },
 					  body:
 					   { schedules:
 					      [ { code_name: 'test_worker',
 					          payload: JSON.stringify({phone: phoneNum, message: message}),
-					          start_at: '2016-08-09T20:30:00.196Z', //need to change the date to the ISO version new Date('09 August 2016 15:05').toISOString()
-					          run_every: 60,
-					          run_times: 10 } ] },
-					  				json: true };
+					          start_at: time, //need to change the date to the ISO version new Date('09 August 2016 15:05').toISOString()
+					          run_every: 60, //interval in seconds
+					          run_times: 10  //how many times until stopped
+								} ]
+						},
+					  json: true
+					};
 
-					request(options, function (error, response, body) {
+					request(options, function (error, response, body) { //POST to Iron Worker to schedule the recurring texts
 					  if (error) throw new Error(error);
 						console.log("RESPONSE body", body.schedules[0].id); //body.schedules[0].id needs to be saved to the script document
-						Model.script.findOneAndUpdate({"_id": scriptID}, {
+						Model.script.findOneAndUpdate({"_id": scriptID}, { //add ironID to script document
 							$set: {
 								reminderID: body.schedules[0].id,
 							}
@@ -253,14 +257,15 @@ deleteReminder: function(scriptID, next) {
 				next("reminder not deleted", err);
 			}
 			var options = {
-						method: 'POST',
-					  url: 'http://worker-aws-us-east-1.iron.io/2/projects/57a8f721bc022f00078da23f/schedules/'+ ironID + '/cancel',
-					  qs: { oauth: '0DHLF4oFfGZIbMcdg2W6' },
-					  headers:
-					   { 'cache-control': 'no-cache',
-					     'content-type': 'application/json',
-					     oauth: '0DHLF4oFfGZIbMcdg2W6' }
-						 };
+				method: 'POST',
+			  url: 'http://worker-aws-us-east-1.iron.io/2/projects/57a8f721bc022f00078da23f/schedules/'+ ironID + '/cancel',
+			  qs: { oauth: '0DHLF4oFfGZIbMcdg2W6' },
+			  headers:
+			   { 'cache-control': 'no-cache',
+			     'content-type': 'application/json',
+			     oauth: '0DHLF4oFfGZIbMcdg2W6'
+				 }
+			};
 			request(options, function (error, response, body) {
 			  if (error) throw new Error(error);
 				console.log("response", body)
