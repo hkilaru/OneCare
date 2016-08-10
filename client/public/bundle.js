@@ -41180,7 +41180,7 @@
 	      "dosageAmt": 0,
 	      "dosageMeasure": 'mg',
 	      "date": date,
-	      "reminderTime": null,
+	      "reminderTime": [],
 	      "scheduleFreq": "1x",
 	      "scheduleDayWeek": "day",
 	      "invalidName": false,
@@ -41252,6 +41252,7 @@
 	      }
 	      if (frequency.target.value === '3x') {
 	        this.setState({
+	          hasTwo: true,
 	          hasThree: true
 	        });
 	      }
@@ -41269,8 +41270,11 @@
 	    key: 'handleReminderTime',
 	    value: function handleReminderTime(time) {
 	      console.log("to IRON MAN format", new Date((0, _moment2.default)(time).format()).toISOString());
+	      var reminderTimes = this.state.remiderTime.slice();
+	      reminderTimes.push(new Date((0, _moment2.default)(time).format()).toISOString());
+	      console.log("reminder times array!!", reminderTimes);
 	      this.setState({
-	        "reminderTime": new Date((0, _moment2.default)(time).format()).toISOString(),
+	        "reminderTime": reminderTimes,
 	        "invalidReminderTime": true
 	      });
 	    }

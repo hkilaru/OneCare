@@ -19,7 +19,7 @@ export default class ScriptRemindView extends React.Component {
       "dosageAmt": 0,
       "dosageMeasure": 'mg',
       "date": date,
-      "reminderTime": null,
+      "reminderTime": [],
       "scheduleFreq": "1x",
       "scheduleDayWeek": "day",
       "invalidName": false,
@@ -86,6 +86,7 @@ export default class ScriptRemindView extends React.Component {
       }
       if(frequency.target.value === '3x'){
         this.setState({
+          hasTwo: true,
           hasThree: true
         })
       }
@@ -102,8 +103,11 @@ export default class ScriptRemindView extends React.Component {
 
     handleReminderTime(time){
       console.log("to IRON MAN format", new Date(moment(time).format()).toISOString());
+      var reminderTimes = this.state.remiderTime.slice();
+      reminderTimes.push(new Date(moment(time).format()).toISOString());
+      console.log("reminder times array!!", reminderTimes);
       this.setState({
-        "reminderTime": new Date(moment(time).format()).toISOString(),
+        "reminderTime": reminderTimes,
         "invalidReminderTime": true
       });
     }
