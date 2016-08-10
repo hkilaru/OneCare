@@ -23,7 +23,9 @@ export default class ScriptRemindView extends React.Component {
       "scheduleFreq": "1x",
       "scheduleDayWeek": "day",
       "invalidName": false,
-      "invalidReminderTime": false
+      "invalidReminderTime": false,
+      "hasTwo": false,
+      "hasThree": false
     };
   var date = new Date();
   this.updateDrugName = this.updateDrugName.bind(this);
@@ -76,6 +78,23 @@ export default class ScriptRemindView extends React.Component {
     handleFrequency(frequency) {
       console.log("current state", this.state);
       console.log("handleFreq called with", frequency.target.value);
+      if(frequency.target.value === '2x'){
+        this.setState({
+          hasTwo: true,
+          hasThree: false
+        })
+      }
+      if(frequency.target.value === '3x'){
+        this.setState({
+          hasThree: true
+        })
+      }
+      if(frequency.target.value === '1x'){
+        this.setState({
+          hasTwo: false,
+          hasThree: false
+        })
+      }
       this.setState({
         scheduleFreq: frequency.target.value
       });
@@ -177,14 +196,24 @@ export default class ScriptRemindView extends React.Component {
           </select>
         </div>
         <div>
-          <h2> Reminder Time </h2>
+        <div className="reminder">
+          <h2> Reminder Time 1</h2>
           <Kronos time={this.state.reminderTime} value={''} placeholder={"Click to select a time"} onChangeDateTime={this.handleReminderTime}/>
           <h8 className='required'> (required) </h8>
         </div>
-        <div>
-
+        <div className={(this.state.hasTwo ? 'reminder' : 'hidden')}>
+          <h2> Reminder Time 2</h2>
+          <Kronos time={this.state.reminderTime} value={''} placeholder={"Click to select a time"} onChangeDateTime={this.handleReminderTime}/>
+          <h8 className='required'> (required) </h8>
+        </div>
+        <div className={this.state.hasThree ? 'reminder' : 'hidden'}>
+          <h2> Reminder Time 3</h2>
+          <Kronos time={this.state.reminderTime} value={''} placeholder={"Click to select a time"} onChangeDateTime={this.handleReminderTime}/>
+          <h8 className='required'> (required) </h8>
+        </div>
+        </div>
+        <div className='clear'>
           <button className= "remindBtn" onClick={this.submitForm}> Remind Me </button>
-
         </div>
 
       </div>

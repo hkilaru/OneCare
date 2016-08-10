@@ -108,6 +108,15 @@ body {
   padding-left: 10px;
 }
 
+.reminder {
+  float: left;
+  margin-right: 30px;
+}
+
+.clear {
+  clear: both;
+}
+
 /* STYLES FOR CALENDAR IN SCRIPT REMIND VIEW */
 .input-calendar {
   font-family: 'Pontano Sans', sans-serif;
