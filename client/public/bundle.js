@@ -41919,7 +41919,7 @@
 	                    ' Refill Date: '
 	                  ),
 	                  ' ',
-	                  script.refill,
+	                  String(new Date(script.refill)).split('').slice(0, 15).join(''),
 	                  ' '
 	                )
 	              ),
