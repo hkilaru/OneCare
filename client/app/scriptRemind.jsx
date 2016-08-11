@@ -136,7 +136,7 @@ export default class ScriptRemindView extends React.Component {
         var script = {
           "name": this.state.currentDrug,
           "dosage": this.state.dosageAmt + ' ' + this.state.dosageMeasure,
-          "refill": this.state.date,
+          "refill": new Date(moment(this.state.date).format()).toISOString(),
           "frequency": this.state.scheduleFreq + ' per ' + this.state.scheduleDayWeek,
           "reminderTime": [this.state.reminderTime1, this.state.reminderTime2, this.state.reminderTime3],
           "username": window.localStorage.username

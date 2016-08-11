@@ -5,17 +5,9 @@ var Model = require('./db.js');
 var jwt  = require('jwt-simple');
 var client = new twilio.RestClient(accountSid, authToken);
 var ObjectId = require('mongoose').Types.ObjectId;
-var cron = require('cron');
-var cronJob = cron.CronJob;
-var CronJobManager = require('cron-job-manager')
-var reminderManager = new CronJobManager();
 var http = require('http');
 var request = require("request");
 
-//
-//
-// var iron_worker = require('iron_worker');
-// var worker = new iron_worker.Client({token: "0DHLF4oFfGZIbMcdg2W6", project_id: "57a8f721bc022f00078da23f"});
 
 
 
@@ -49,7 +41,7 @@ var dbFunc = {
 				}
 				//call set reminder function
 				console.log("set reminder about to be called");
-				this.setReminder(script.username, newScript._id, message, script.reminderTime, next); //script.reminderTime is an array of times
+				this.setReminder(script.username, newScript._id, message, script.reminderTime, script.refill, script.name, next); //script.reminderTime is an array of times
 			}.bind(this));
 		}.bind(this));
 
@@ -100,6 +92,7 @@ var dbFunc = {
 			next("doctor deleted");
 		});
   },
+
 
 
 	/* AUTHENTICATION FUNCTIONS */
@@ -191,7 +184,7 @@ var dbFunc = {
 			});
 	},
 
-	setReminder: function(username, scriptID, message, time, next) { //time is an array
+	setReminder: function(username, scriptID, message, time, refillDate, drugName, next) { //time is an array
 		console.log("sendReminder called for", username, "with the message:", message);
 		// look up user object and find their phone number
 				Model.user.findOne({"username": username}, function(err, user){
@@ -224,7 +217,7 @@ var dbFunc = {
 								},
 							  json: true
 							};
-
+							console.log("parameters so far", i, refillDate, time[i]);
 							request(options, function (error, response, body) { //POST to Iron Worker to schedule the recurring texts
 							  if (error) throw new Error(error);
 								console.log("RESPONSE body", body.schedules[0].id); //body.schedules[0].id needs to be saved to the script document
@@ -242,8 +235,37 @@ var dbFunc = {
 									next(new Error("reminder has not been saved", err));
 								});
 							});
-						}
 					}
+				}
+
+					//set refill reminder
+
+					if(refillDate){
+						var options = {
+							method: 'POST',
+							url: 'http://worker-aws-us-east-1.iron.io/2/projects/57a8f721bc022f00078da23f/schedules',
+							qs: { oauth: '0DHLF4oFfGZIbMcdg2W6' },
+							headers:
+							 { 'cache-control': 'no-cache',
+								 'content-type': 'application/json',
+								 oauth: '0DHLF4oFfGZIbMcdg2W6'
+							 },
+							body:
+							 { schedules:
+									[ { code_name: 'test_worker',
+											payload: JSON.stringify({phone: phoneNum, message: 'Hello from OneCare! Remember to refill your ' + drugName + ' today.' }),
+											start_at: refillDate, //need to change the date to the ISO version new Date('09 August 2016 15:05').toISOString()
+											run_every: null, //interval in seconds
+											run_times: 1  //how many times until stopped
+									} ]
+							},
+							json: true
+						};
+
+						request(options, function (error, response, body) { //POST to Iron Worker to schedule the recurring texts
+							if (error) throw new Error(error);
+						});
+				}
 	});
 },
 

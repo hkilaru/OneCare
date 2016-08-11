@@ -8,7 +8,6 @@ export default class DoctorView extends React.Component {
 
   deleteDoc(id){
     console.log("docID", id);
-
     $.ajax({
      type: "POST",
      url: "/api/doctor/delete",

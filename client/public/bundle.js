@@ -37974,7 +37974,6 @@
 	    key: 'deleteDoc',
 	    value: function deleteDoc(id) {
 	      console.log("docID", id);
-
 	      $.ajax({
 	        type: "POST",
 	        url: "/api/doctor/delete",
@@ -41307,7 +41306,7 @@
 	          var script = {
 	            "name": this.state.currentDrug,
 	            "dosage": this.state.dosageAmt + ' ' + this.state.dosageMeasure,
-	            "refill": this.state.date,
+	            "refill": new Date((0, _moment2.default)(this.state.date).format()).toISOString(),
 	            "frequency": this.state.scheduleFreq + ' per ' + this.state.scheduleDayWeek,
 	            "reminderTime": [this.state.reminderTime1, this.state.reminderTime2, this.state.reminderTime3],
 	            "username": window.localStorage.username
