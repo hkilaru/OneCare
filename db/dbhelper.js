@@ -49,7 +49,7 @@ var dbFunc = {
 				}
 				//call set reminder function
 				console.log("set reminder about to be called");
-				this.setReminder(script.username, newScript._id, message, script.reminderTime, next); //need to format time in ISO format
+				this.setReminder(script.username, newScript._id, message, script.reminderTime, next); //script.reminderTime is an array of times
 			}.bind(this));
 		}.bind(this));
 
@@ -191,7 +191,7 @@ var dbFunc = {
 			});
 	},
 
-	setReminder: function(username, scriptID, message, time, next) {
+	setReminder: function(username, scriptID, message, time, next) { //time is an array
 		console.log("sendReminder called for", username, "with the message:", message);
 		// look up user object and find their phone number
 				Model.user.findOne({"username": username}, function(err, user){
@@ -202,45 +202,48 @@ var dbFunc = {
 					console.log("Number on file", phoneNum);
 					console.log("payload", JSON.stringify({phone: phoneNum, message: message}));
 
-					var options = {
-						method: 'POST',
-					  url: 'http://worker-aws-us-east-1.iron.io/2/projects/57a8f721bc022f00078da23f/schedules',
-					  qs: { oauth: '0DHLF4oFfGZIbMcdg2W6' },
-					  headers:
-					   { 'cache-control': 'no-cache',
-					     'content-type': 'application/json',
-					     oauth: '0DHLF4oFfGZIbMcdg2W6'
-						 },
-					  body:
-					   { schedules:
-					      [ { code_name: 'test_worker',
-					          payload: JSON.stringify({phone: phoneNum, message: message}),
-					          start_at: time, //need to change the date to the ISO version new Date('09 August 2016 15:05').toISOString()
-					          run_every: 60, //interval in seconds
-					          run_times: 10  //how many times until stopped
-								} ]
-						},
-					  json: true
-					};
+					for(let i = 0; i < time.length; i++) {
+						if(time[i] !== null){
+							var options = {
+								method: 'POST',
+							  url: 'http://worker-aws-us-east-1.iron.io/2/projects/57a8f721bc022f00078da23f/schedules',
+							  qs: { oauth: '0DHLF4oFfGZIbMcdg2W6' },
+							  headers:
+							   { 'cache-control': 'no-cache',
+							     'content-type': 'application/json',
+							     oauth: '0DHLF4oFfGZIbMcdg2W6'
+								 },
+							  body:
+							   { schedules:
+							      [ { code_name: 'test_worker',
+							          payload: JSON.stringify({phone: phoneNum, message: message}),
+							          start_at: time[i], //need to change the date to the ISO version new Date('09 August 2016 15:05').toISOString()
+							          run_every: 60, //interval in seconds
+							          run_times: 10  //how many times until stopped
+										} ]
+								},
+							  json: true
+							};
 
-					request(options, function (error, response, body) { //POST to Iron Worker to schedule the recurring texts
-					  if (error) throw new Error(error);
-						console.log("RESPONSE body", body.schedules[0].id); //body.schedules[0].id needs to be saved to the script document
-						Model.script.findOneAndUpdate({"_id": scriptID}, { //add ironID to script document
-							$set: {
-								reminderID: body.schedules[0].id,
-							}
-						})
-						.then(function(res) {
-							console.log("script has been saved and the reminder ID is set!!");
-							next("reminder has been saved");
+							request(options, function (error, response, body) { //POST to Iron Worker to schedule the recurring texts
+							  if (error) throw new Error(error);
+								console.log("RESPONSE body", body.schedules[0].id); //body.schedules[0].id needs to be saved to the script document
+								Model.script.findOneAndUpdate({"_id": scriptID}, { //add ironID to script document
+									$push: {
+										reminderID: body.schedules[0].id,
+									}
+								})
+								.then(function(res) {
+									console.log("script has been saved and the reminder ID is set!!");
+									next("reminder has been saved");
 
-						})
-						.catch(function(err) {
-							next(new Error("reminder has not been saved", err));
-						});
-					});
-
+								})
+								.catch(function(err) {
+									next(new Error("reminder has not been saved", err));
+								});
+							});
+						}
+					}
 	});
 },
 
@@ -249,26 +252,29 @@ deleteReminder: function(scriptID, next) {
 	Model.script.findOne({"_id": scriptID}, function(err, script){
 		if(err){next(new Error(err))}
 		console.log("ironID: ", script.reminderID);
-		var ironID = script.reminderID;
+		var ironIDs = script.reminderID;
+		for(let i = 0; i < ironIDs.length; i++){
+			if(ironIDs[i] !== null){
+				var options = {
+					method: 'POST',
+					url: 'http://worker-aws-us-east-1.iron.io/2/projects/57a8f721bc022f00078da23f/schedules/'+ ironIDs[i] + '/cancel',
+					qs: { oauth: '0DHLF4oFfGZIbMcdg2W6' },
+					headers:
+					 { 'cache-control': 'no-cache',
+						 'content-type': 'application/json',
+						 oauth: '0DHLF4oFfGZIbMcdg2W6'
+					 }
+				};
+				request(options, function (error, response, body) {
+					if (error) throw new Error(error);
+					console.log("response", body)
+				})
+			}
+		}
 		Model.script.remove({"_id": scriptID}, function(err){
-
 			if(err){
 				next("reminder not deleted", err);
 			}
-			var options = {
-				method: 'POST',
-			  url: 'http://worker-aws-us-east-1.iron.io/2/projects/57a8f721bc022f00078da23f/schedules/'+ ironID + '/cancel',
-			  qs: { oauth: '0DHLF4oFfGZIbMcdg2W6' },
-			  headers:
-			   { 'cache-control': 'no-cache',
-			     'content-type': 'application/json',
-			     oauth: '0DHLF4oFfGZIbMcdg2W6'
-				 }
-			};
-			request(options, function (error, response, body) {
-			  if (error) throw new Error(error);
-				console.log("response", body)
-			})
 			next("reminder deleted");
 		});
 	})

@@ -15,9 +15,9 @@ var scriptSchema = new Schema({
 	recur: String, // this refers to whether: daily,weekly, monthly
 	refill: Date, // date of refill
 	refillRemind: Number, //reminder for refill
-	dailyRemind: Number, //reminder for doses
+	reminderTime: Array, //reminder for doses
 	phone: String,
-	reminderID: String
+	reminderID: Array
 
 	// User: {type: Schema.Types.ObjectId, ref: 'User'}
 	// refers to a specific user

@@ -41180,7 +41180,9 @@
 	      "dosageAmt": 0,
 	      "dosageMeasure": 'mg',
 	      "date": date,
-	      "reminderTime": [],
+	      "reminderTime1": null,
+	      "reminderTime2": null,
+	      "reminderTime3": null,
 	      "scheduleFreq": "1x",
 	      "scheduleDayWeek": "day",
 	      "invalidName": false,
@@ -41196,7 +41198,9 @@
 	    _this.handleRefillDate = _this.handleRefillDate.bind(_this);
 	    _this.handleDoseMeasurement = _this.handleDoseMeasurement.bind(_this);
 	    _this.handleScheduleDayWeek = _this.handleScheduleDayWeek.bind(_this);
-	    _this.handleReminderTime = _this.handleReminderTime.bind(_this);
+	    _this.handleReminderTime1 = _this.handleReminderTime1.bind(_this);
+	    _this.handleReminderTime2 = _this.handleReminderTime2.bind(_this);
+	    _this.handleReminderTime3 = _this.handleReminderTime3.bind(_this);
 
 	    return _this;
 	  }
@@ -41267,15 +41271,24 @@
 	      });
 	    }
 	  }, {
-	    key: 'handleReminderTime',
-	    value: function handleReminderTime(time) {
-	      console.log("to IRON MAN format", new Date((0, _moment2.default)(time).format()).toISOString());
-	      var reminderTimes = this.state.remiderTime.slice();
-	      reminderTimes.push(new Date((0, _moment2.default)(time).format()).toISOString());
-	      console.log("reminder times array!!", reminderTimes);
+	    key: 'handleReminderTime1',
+	    value: function handleReminderTime1(time) {
 	      this.setState({
-	        "reminderTime": reminderTimes,
-	        "invalidReminderTime": true
+	        reminderTime1: new Date((0, _moment2.default)(time).format()).toISOString()
+	      });
+	    }
+	  }, {
+	    key: 'handleReminderTime2',
+	    value: function handleReminderTime2(time) {
+	      this.setState({
+	        reminderTime2: new Date((0, _moment2.default)(time).format()).toISOString()
+	      });
+	    }
+	  }, {
+	    key: 'handleReminderTime3',
+	    value: function handleReminderTime3(time) {
+	      this.setState({
+	        reminderTime3: new Date((0, _moment2.default)(time).format()).toISOString()
 	      });
 	    }
 	  }, {
@@ -41286,37 +41299,39 @@
 	        alert("Please enter a prescription name and reminder time");
 	      } else if (!this.state.invalidName) {
 	        alert("Please enter a prescription name");
-	      } else if (!this.state.invalidReminderTime) {
-	        alert("Please enter a reminder time");
-	      } else {
-	        var script = {
-	          "name": this.state.currentDrug,
-	          "dosage": this.state.dosageAmt + ' ' + this.state.dosageMeasure,
-	          "refill": this.state.date,
-	          "frequency": this.state.scheduleFreq + ' per ' + this.state.scheduleDayWeek,
-	          "reminderTime": this.state.reminderTime,
-	          "username": window.localStorage.username
-	        };
-	        console.log("submitForm called for: ", script);
-
-	        _jquery2.default.ajax({
-	          type: 'POST',
-	          url: '/api/reminder/add',
-	          dataType: 'json',
-	          headers: {
-	            'Content-Type': 'application/json'
-	          },
-	          data: JSON.stringify(script),
-	          success: function success(data) {
-	            alert("Your prescription was saved.");
-	            console.log('A reminder was set for: ', data);
-	          },
-	          error: function error(err) {
-	            alert("Your prescription was saved.");
-	            console.log('Reminder not set: ', err);
-	          }
-	        });
 	      }
+	      // else if(!this.state.invalidReminderTime){
+	      //   alert("Please enter a reminder time");
+	      // }
+	      else {
+	          var script = {
+	            "name": this.state.currentDrug,
+	            "dosage": this.state.dosageAmt + ' ' + this.state.dosageMeasure,
+	            "refill": this.state.date,
+	            "frequency": this.state.scheduleFreq + ' per ' + this.state.scheduleDayWeek,
+	            "reminderTime": [this.state.reminderTime1, this.state.reminderTime2, this.state.reminderTime3],
+	            "username": window.localStorage.username
+	          };
+	          console.log("submitForm called for: ", script);
+
+	          _jquery2.default.ajax({
+	            type: 'POST',
+	            url: '/api/reminder/add',
+	            dataType: 'json',
+	            headers: {
+	              'Content-Type': 'application/json'
+	            },
+	            data: JSON.stringify(script),
+	            success: function success(data) {
+	              alert("Your prescription was saved.");
+	              console.log('A reminder was set for: ', data);
+	            },
+	            error: function error(err) {
+	              alert("Your prescription was saved.");
+	              console.log('Reminder not set: ', err);
+	            }
+	          });
+	        }
 	    }
 	  }, {
 	    key: 'render',
@@ -41451,7 +41466,7 @@
 	              null,
 	              ' Reminder Time 1'
 	            ),
-	            _react2.default.createElement(_reactKronos2.default, { time: this.state.reminderTime, value: '', placeholder: "Click to select a time", onChangeDateTime: this.handleReminderTime }),
+	            _react2.default.createElement(_reactKronos2.default, { time: this.state.reminderTime1, value: '', placeholder: "Click to select a time", onChangeDateTime: this.handleReminderTime1 }),
 	            _react2.default.createElement(
 	              'h8',
 	              { className: 'required' },
@@ -41466,7 +41481,7 @@
 	              null,
 	              ' Reminder Time 2'
 	            ),
-	            _react2.default.createElement(_reactKronos2.default, { time: this.state.reminderTime, value: '', placeholder: "Click to select a time", onChangeDateTime: this.handleReminderTime }),
+	            _react2.default.createElement(_reactKronos2.default, { time: this.state.reminderTime2, value: '', placeholder: "Click to select a time", onChangeDateTime: this.handleReminderTime2 }),
 	            _react2.default.createElement(
 	              'h8',
 	              { className: 'required' },
@@ -41481,7 +41496,7 @@
 	              null,
 	              ' Reminder Time 3'
 	            ),
-	            _react2.default.createElement(_reactKronos2.default, { time: this.state.reminderTime, value: '', placeholder: "Click to select a time", onChangeDateTime: this.handleReminderTime }),
+	            _react2.default.createElement(_reactKronos2.default, { time: this.state.reminderTime3, value: '', placeholder: "Click to select a time", onChangeDateTime: this.handleReminderTime3 }),
 	            _react2.default.createElement(
 	              'h8',
 	              { className: 'required' },
