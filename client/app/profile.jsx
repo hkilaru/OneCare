@@ -4,6 +4,7 @@ import Navigate from './navigate.jsx';
 import ScriptRemind from './scriptRemind.jsx';
 import Modal from 'react-modal';
 import DoctorEntryView from './doctorEntryView.jsx';
+import _ from 'lodash';
 
 export default class Profile extends React.Component {
   constructor(props) {
@@ -104,8 +105,8 @@ export default class Profile extends React.Component {
      },
      data: JSON.stringify({username: window.localStorage.username}),
      success: function(data) {
-       console.log('user scripts from AJAX request', data);
-       this.setState({scripts: data});
+       var sorted  = _.sortBy(data, 'refill'); //sorts scripts by refill date
+       this.setState({scripts: sorted});
      }.bind(this),
      error: function(err) {
        console.log('error in ajax request for user scripts', data);
