@@ -277,12 +277,11 @@ export default class Profile extends React.Component {
                 this.state.doctors.map((doctor, idx) => {
                   return (
                     <div className="doctor-view-container" key={idx }>
-                    <div className="doctor-name">{doctor.name}</div>
-                    <div><span className="doctor-attribute">Phone: </span>{doctor.phone}</div>
-                    <div><span className="doctor-attribute">Email: </span>{doctor.email}</div>
-                    <div><span className="doctor-attribute">Address: </span>{doctor.address}</div>
-                    <div><span className="doctor-attribute">Specialty: </span>{doctor.specialty}</div>
-                    <button onClick={this.deleteDoc.bind(this, idx)}> Delete </button>
+                    <div className="doctor-top-bar"><p className='doctor-name'>{doctor.name}</p><i className="fa fa-times" aria-hidden="true" onClick={this.deleteDoc.bind(this, idx)}></i></div>
+                    <div><i className="fa fa-phone" aria-hidden="true"></i>  {doctor.phone}</div>
+                    <div><i className="fa fa-envelope" aria-hidden="true"></i>  {doctor.email}</div>
+                    <div><i className="fa fa-map-marker" aria-hidden="true"></i>  {doctor.address}</div>
+                    <div><i className="fa fa-stethoscope" aria-hidden="true"></i>  {doctor.specialty}</div>
                     </div>
                   );
                 }, this)
