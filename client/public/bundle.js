@@ -41957,7 +41957,7 @@
 	                  null,
 	                  ' ',
 	                  _react2.default.createElement('i', { className: 'fa fa-heart', 'aria-hidden': 'true' }),
-	                  ' Dosage: ',
+	                  '  Dosage: ',
 	                  script.dosage,
 	                  ' '
 	                ),
@@ -41966,7 +41966,7 @@
 	                  null,
 	                  ' ',
 	                  _react2.default.createElement('i', { className: 'fa fa-bell', 'aria-hidden': 'true' }),
-	                  ' Reminder: ',
+	                  '  Reminder: ',
 	                  script.frequency,
 	                  ' '
 	                ),
@@ -41975,7 +41975,7 @@
 	                  null,
 	                  ' ',
 	                  _react2.default.createElement('i', { className: 'fa fa-calendar', 'aria-hidden': 'true' }),
-	                  ' Refill: ',
+	                  '  Refill: ',
 	                  String(new Date(script.refill)).split('').slice(0, 15).join(''),
 	                  ' '
 	                )
@@ -41993,7 +41993,7 @@
 	            this.state.doctors.map(function (doctor, idx) {
 	              return _react2.default.createElement(
 	                'div',
-	                { className: 'doctor-view-container', key: idx },
+	                { className: ' doctor-view-container', key: idx },
 	                _react2.default.createElement(
 	                  'div',
 	                  { className: 'doctor-top-bar' },

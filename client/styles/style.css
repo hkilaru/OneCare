@@ -97,6 +97,7 @@ ul {
 }
 
 .doctors-title {
+  font-size: 26pt;
   margin-left: 5px;
   text-align: center;
   color: white;
@@ -118,6 +119,7 @@ ul {
 }
 
 .scripts-title {
+  font-size: 26pt;
   text-align: center;
   color: white;
   font-weight: lighter;

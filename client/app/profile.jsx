@@ -246,9 +246,9 @@ export default class Profile extends React.Component {
                 return (
                   <div className="scripts-view-container" key={idx}>
                   <div className="script-top-bar"><p className="script-name"> {script.name}</p><i className="fa fa-times" aria-hidden="true" onClick={this.deleteScript.bind(this, idx)}></i></div>
-                  <div> <i className="fa fa-heart" aria-hidden="true"></i> Dosage: {script.dosage} </div>
-                  <div> <i className="fa fa-bell" aria-hidden="true"></i> Reminder: {script.frequency} </div>
-                  <div> <i className="fa fa-calendar" aria-hidden="true"></i> Refill: {String(new Date(script.refill)).split('').slice(0, 15).join('')} </div>
+                  <div> <i className="fa fa-heart" aria-hidden="true"></i>  Dosage: {script.dosage} </div>
+                  <div> <i className="fa fa-bell" aria-hidden="true"></i>  Reminder: {script.frequency} </div>
+                  <div> <i className="fa fa-calendar" aria-hidden="true"></i>  Refill: {String(new Date(script.refill)).split('').slice(0, 15).join('')} </div>
                  </div>
                );
               }, this)
@@ -259,7 +259,7 @@ export default class Profile extends React.Component {
               {
                 this.state.doctors.map((doctor, idx) => {
                   return (
-                    <div className="doctor-view-container" key={idx }>
+                    <div className=" doctor-view-container" key={idx }>
                     <div className="doctor-top-bar"><p className='doctor-name'>{doctor.name}</p><i className="fa fa-times" aria-hidden="true" onClick={this.deleteDoc.bind(this, idx)}></i></div>
                     <div><i className="fa fa-phone" aria-hidden="true"></i>  {doctor.phone}</div>
                     <div><i className="fa fa-envelope" aria-hidden="true"></i>  {doctor.email}</div>
