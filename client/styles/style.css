@@ -17,6 +17,22 @@ ul {
     right: 10px;
 }
 
+.red {
+  color: #CD0000;
+}
+
+.gold {
+  color: #CDAD00;
+}
+
+.phone-green {
+  color: #228b22;
+}
+
+.royal-blue {
+  color: #27408B;
+}
+
 .required {
   color: red;
 }
@@ -45,7 +61,7 @@ ul {
 /* PROFILE */
 
 .profile-container {
-  background-color: #D8D8D8;
+  background-color: #FFF;
 }
 
 /********* DOCTORS *********/
@@ -83,7 +99,10 @@ ul {
 
 .doctors-container {
   float:right;
-  width: 400px;
+  width: 500px;
+  margin-top: 10px;
+  margin-left: 20px;
+  padding: 10px;
   background-color: #333333;
 }
 
@@ -107,7 +126,7 @@ ul {
 }
 
 .doctors-title {
-  font-size: 26pt;
+  font-size: 30pt;
   margin-left: 5px;
   text-align: center;
   color: white;
@@ -128,16 +147,19 @@ ul {
 }
 .scripts-doctors {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 }
 .scripts-container {
   float:left;
-  width: 400px;
-  background-color: #333333;
+  width: 500px;
+  margin-top: 10px;
+  margin-right: 20px;
+  padding: 10px;
+  background-color: #191970;
 }
 
 .scripts-title {
-  font-size: 26pt;
+  font-size: 30pt;
   color: white;
   font-weight: lighter;
 }
