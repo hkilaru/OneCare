@@ -48,7 +48,7 @@ export default class Profile extends React.Component {
     this.openModalDoctor = this.openModalDoctor.bind(this);
     this.closeModalDoctor = this.closeModalDoctor.bind(this);
     this.getScripts = this.getScripts.bind(this);
-    this.deleteReminder= this.deleteReminder.bind(this);
+    this.deleteScript= this.deleteScript.bind(this);
     this.getDocs = this.getDocs.bind(this);
     this.deleteDoc = this.deleteDoc.bind(this);
     this.openModalMap = this.openModalMap.bind(this);
@@ -68,20 +68,14 @@ export default class Profile extends React.Component {
        "Content-Type": "application/json"
      },
      data: JSON.stringify({ "docID": id }),
-     success: function(data) {
-       console.log("Doctor deleted");
-       location.reload();
-       // delete doctor object from doctor state
-     },
-     error: function(err) {
-       console.log('Doctor not deleted', err);
-       location.reload();
-     }
+     success: this.getDocs(),
+     error: this.getDocs()
    });
 
   }
 
-  deleteReminder(index) {
+  deleteScript(index) {
+    console.log("deleteReminder called!!");
     var id = this.state.scripts[index]._id;
     console.log("reminderID", id);
     $.ajax({
@@ -92,14 +86,8 @@ export default class Profile extends React.Component {
        "Content-Type": "application/json"
      },
      data: JSON.stringify({ "reminderID": id }),
-     success: function(data) {
-       console.log("Script deleted");
-       this.getScripts();
-     }.bind(this),
-     error: function(err) {
-       console.log('script not deleted', err);
-       this.getScripts();
-     }.bind(this)
+     success: this.getScripts(),
+     error: this.getScripts()
    });
   }
 
@@ -155,7 +143,7 @@ export default class Profile extends React.Component {
        this.setState({scripts: sorted});
      }.bind(this),
      error: function(err) {
-       console.log('error in ajax request for user scripts', data);
+       console.log('error in ajax request for user scripts', err);
      }
    });
 
@@ -211,10 +199,9 @@ export default class Profile extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='profile-container'>
         <Navigate />
         <h1> My Profile </h1>
-          <div className="allScripts">
         <button onClick={this.openModalScript}> New Prescription </button>
         <button onClick={this.openModalDoctor}> New Doctor </button> <br/><br/>
         <div>
@@ -251,28 +238,24 @@ export default class Profile extends React.Component {
           />
           <button onClick={this.closeModalMap}>Exit</button>
         </Modal>
-
-      <h2> My Profile </h2>
-      <h3> Your Scripts </h3>
+      <div className="scripts-doctors">
+      <div className='scripts-container'>
+      <h3 className='scripts-title'> Scripts </h3>
              {
               this.state.scripts.map((script, idx) => {
                 return (
-                  <ul className="User-Scripts" key={idx}>
-                  <div className="single-script">
-                  <div className="script-name"> Name:{script.name} </div>
-                  <div> <span className="script-attribute"> Dosage: </span> {script.dosage} </div>
-                  <div> <span className="script-attribute"> Frequency: </span> {script.frequency} </div>
-                  <div> <span className="script-attribute"> Refill Date: </span> {String(new Date(script.refill)).split('').slice(0, 15).join('')} </div>
-                  <button onClick={this.deleteReminder.bind(this, idx)} >Delete</button>
-                  </div>
-                 </ul>
+                  <div className="scripts-view-container" key={idx}>
+                  <div className="script-top-bar"><p className="script-name"> {script.name}</p><i className="fa fa-times" aria-hidden="true" onClick={this.deleteScript.bind(this, idx)}></i></div>
+                  <div> <i className="fa fa-heart" aria-hidden="true"></i> Dosage: {script.dosage} </div>
+                  <div> <i className="fa fa-bell" aria-hidden="true"></i> Reminder: {script.frequency} </div>
+                  <div> <i className="fa fa-calendar" aria-hidden="true"></i> Refill: {String(new Date(script.refill)).split('').slice(0, 15).join('')} </div>
+                 </div>
                );
               }, this)
             }
           </div>
-
-          <h3> Your Doctors </h3>
-
+        <div className='doctors-container'>
+          <h3 className='doctors-title'> Doctors </h3>
               {
                 this.state.doctors.map((doctor, idx) => {
                   return (
@@ -286,6 +269,8 @@ export default class Profile extends React.Component {
                   );
                 }, this)
               }
+      </div>
+      </div>
       </div>
     );
   }

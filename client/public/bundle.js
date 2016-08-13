@@ -142,11 +142,7 @@
 	  return App;
 	}(_react2.default.Component);
 
-	_reactDom2.default.render(_react2.default.createElement(
-	  'div',
-	  null,
-	  _react2.default.createElement(App, null)
-	), document.getElementById("app"));
+	_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById("app"));
 
 /***/ },
 /* 1 */
@@ -41682,7 +41678,7 @@
 	    _this.openModalDoctor = _this.openModalDoctor.bind(_this);
 	    _this.closeModalDoctor = _this.closeModalDoctor.bind(_this);
 	    _this.getScripts = _this.getScripts.bind(_this);
-	    _this.deleteReminder = _this.deleteReminder.bind(_this);
+	    _this.deleteScript = _this.deleteScript.bind(_this);
 	    _this.getDocs = _this.getDocs.bind(_this);
 	    _this.deleteDoc = _this.deleteDoc.bind(_this);
 	    _this.openModalMap = _this.openModalMap.bind(_this);
@@ -41705,20 +41701,14 @@
 	          "Content-Type": "application/json"
 	        },
 	        data: JSON.stringify({ "docID": id }),
-	        success: function success(data) {
-	          console.log("Doctor deleted");
-	          location.reload();
-	          // delete doctor object from doctor state
-	        },
-	        error: function error(err) {
-	          console.log('Doctor not deleted', err);
-	          location.reload();
-	        }
+	        success: this.getDocs(),
+	        error: this.getDocs()
 	      });
 	    }
 	  }, {
-	    key: 'deleteReminder',
-	    value: function deleteReminder(index) {
+	    key: 'deleteScript',
+	    value: function deleteScript(index) {
+	      console.log("deleteReminder called!!");
 	      var id = this.state.scripts[index]._id;
 	      console.log("reminderID", id);
 	      _jquery2.default.ajax({
@@ -41729,14 +41719,8 @@
 	          "Content-Type": "application/json"
 	        },
 	        data: JSON.stringify({ "reminderID": id }),
-	        success: function (data) {
-	          console.log("Script deleted");
-	          this.getScripts();
-	        }.bind(this),
-	        error: function (err) {
-	          console.log('script not deleted', err);
-	          this.getScripts();
-	        }.bind(this)
+	        success: this.getScripts(),
+	        error: this.getScripts()
 	      });
 	    }
 	  }, {
@@ -41799,7 +41783,7 @@
 	          this.setState({ scripts: sorted });
 	        }.bind(this),
 	        error: function error(err) {
-	          console.log('error in ajax request for user scripts', data);
+	          console.log('error in ajax request for user scripts', err);
 	        }
 	      });
 	    }
@@ -41861,7 +41845,7 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'profile-container' },
 	        _react2.default.createElement(_navigate2.default, null),
 	        _react2.default.createElement(
 	          'h1',
@@ -41869,116 +41853,111 @@
 	          ' My Profile '
 	        ),
 	        _react2.default.createElement(
+	          'button',
+	          { onClick: this.openModalScript },
+	          ' New Prescription '
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: this.openModalDoctor },
+	          ' New Doctor '
+	        ),
+	        ' ',
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement(
 	          'div',
-	          { className: 'allScripts' },
-	          _react2.default.createElement(
-	            'button',
-	            { onClick: this.openModalScript },
-	            ' New Prescription '
-	          ),
-	          _react2.default.createElement(
-	            'button',
-	            { onClick: this.openModalDoctor },
-	            ' New Doctor '
-	          ),
-	          ' ',
-	          _react2.default.createElement('br', null),
-	          _react2.default.createElement('br', null),
+	          null,
 	          _react2.default.createElement(
 	            'div',
 	            null,
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              ' Input Zipcode'
-	            ),
-	            _react2.default.createElement('input', { type: 'text', onChange: function onChange(event) {
-	                _this2.setState({ inputZip: event.target.value });
-	              } }),
-	            _react2.default.createElement(
-	              'button',
-	              { onClick: this.openModalMap },
-	              ' Nearest Pharmacy '
-	            )
+	            ' Input Zipcode'
 	          ),
+	          _react2.default.createElement('input', { type: 'text', onChange: function onChange(event) {
+	              _this2.setState({ inputZip: event.target.value });
+	            } }),
 	          _react2.default.createElement(
-	            _reactModal2.default,
-	            {
-	              isOpen: this.state.scriptmodalIsOpen,
-	              shouldCloseOnOverlayClick: false
-	            },
-	            _react2.default.createElement(_scriptRemind2.default, {
-	              closeFn: this.closeModalScript }),
-	            _react2.default.createElement(
-	              'button',
-	              { onClick: this.closeModalScript },
-	              'Exit'
-	            )
-	          ),
+	            'button',
+	            { onClick: this.openModalMap },
+	            ' Nearest Pharmacy '
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactModal2.default,
+	          {
+	            isOpen: this.state.scriptmodalIsOpen,
+	            shouldCloseOnOverlayClick: false
+	          },
+	          _react2.default.createElement(_scriptRemind2.default, {
+	            closeFn: this.closeModalScript }),
 	          _react2.default.createElement(
-	            _reactModal2.default,
-	            {
+	            'button',
+	            { onClick: this.closeModalScript },
+	            'Exit'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactModal2.default,
+	          {
 
-	              isOpen: this.state.docmodalIsOpen,
-	              shouldCloseOnOverlayClick: false
-	            },
-	            _react2.default.createElement(_doctorEntryView2.default, {
-	              closeFn: this.closeModalDoctor }),
+	            isOpen: this.state.docmodalIsOpen,
+	            shouldCloseOnOverlayClick: false
+	          },
+	          _react2.default.createElement(_doctorEntryView2.default, {
+	            closeFn: this.closeModalDoctor }),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this.closeModalDoctor },
+	            'Exit'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactModal2.default,
+	          {
+	            isOpen: this.state.mapmodalIsOpen,
+	            shouldCloseOnOverlayClick: false
+	          },
+	          _react2.default.createElement(_map2.default, {
+	            zipcode: this.state.inputZip
+	          }),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this.closeModalMap },
+	            'Exit'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'scripts-doctors' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'scripts-container' },
 	            _react2.default.createElement(
-	              'button',
-	              { onClick: this.closeModalDoctor },
-	              'Exit'
-	            )
-	          ),
-	          _react2.default.createElement(
-	            _reactModal2.default,
-	            {
-	              isOpen: this.state.mapmodalIsOpen,
-	              shouldCloseOnOverlayClick: false
-	            },
-	            _react2.default.createElement(_map2.default, {
-	              zipcode: this.state.inputZip
-	            }),
-	            _react2.default.createElement(
-	              'button',
-	              { onClick: this.closeModalMap },
-	              'Exit'
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'h2',
-	            null,
-	            ' My Profile '
-	          ),
-	          _react2.default.createElement(
-	            'h3',
-	            null,
-	            ' Your Scripts '
-	          ),
-	          this.state.scripts.map(function (script, idx) {
-	            return _react2.default.createElement(
-	              'ul',
-	              { className: 'User-Scripts', key: idx },
-	              _react2.default.createElement(
+	              'h3',
+	              { className: 'scripts-title' },
+	              ' Scripts '
+	            ),
+	            this.state.scripts.map(function (script, idx) {
+	              return _react2.default.createElement(
 	                'div',
-	                { className: 'single-script' },
+	                { className: 'scripts-view-container', key: idx },
 	                _react2.default.createElement(
 	                  'div',
-	                  { className: 'script-name' },
-	                  ' Name:',
-	                  script.name,
-	                  ' '
+	                  { className: 'script-top-bar' },
+	                  _react2.default.createElement(
+	                    'p',
+	                    { className: 'script-name' },
+	                    ' ',
+	                    script.name
+	                  ),
+	                  _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true', onClick: _this2.deleteScript.bind(_this2, idx) })
 	                ),
 	                _react2.default.createElement(
 	                  'div',
 	                  null,
 	                  ' ',
-	                  _react2.default.createElement(
-	                    'span',
-	                    { className: 'script-attribute' },
-	                    ' Dosage: '
-	                  ),
-	                  ' ',
+	                  _react2.default.createElement('i', { className: 'fa fa-heart', 'aria-hidden': 'true' }),
+	                  ' Dosage: ',
 	                  script.dosage,
 	                  ' '
 	                ),
@@ -41986,12 +41965,8 @@
 	                  'div',
 	                  null,
 	                  ' ',
-	                  _react2.default.createElement(
-	                    'span',
-	                    { className: 'script-attribute' },
-	                    ' Frequency: '
-	                  ),
-	                  ' ',
+	                  _react2.default.createElement('i', { className: 'fa fa-bell', 'aria-hidden': 'true' }),
+	                  ' Reminder: ',
 	                  script.frequency,
 	                  ' '
 	                ),
@@ -41999,73 +41974,68 @@
 	                  'div',
 	                  null,
 	                  ' ',
-	                  _react2.default.createElement(
-	                    'span',
-	                    { className: 'script-attribute' },
-	                    ' Refill Date: '
-	                  ),
-	                  ' ',
+	                  _react2.default.createElement('i', { className: 'fa fa-calendar', 'aria-hidden': 'true' }),
+	                  ' Refill: ',
 	                  String(new Date(script.refill)).split('').slice(0, 15).join(''),
 	                  ' '
+	                )
+	              );
+	            }, this)
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'doctors-container' },
+	            _react2.default.createElement(
+	              'h3',
+	              { className: 'doctors-title' },
+	              ' Doctors '
+	            ),
+	            this.state.doctors.map(function (doctor, idx) {
+	              return _react2.default.createElement(
+	                'div',
+	                { className: 'doctor-view-container', key: idx },
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'doctor-top-bar' },
+	                  _react2.default.createElement(
+	                    'p',
+	                    { className: 'doctor-name' },
+	                    doctor.name
+	                  ),
+	                  _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true', onClick: _this2.deleteDoc.bind(_this2, idx) })
 	                ),
 	                _react2.default.createElement(
-	                  'button',
-	                  { onClick: _this2.deleteReminder.bind(_this2, idx) },
-	                  'Delete'
+	                  'div',
+	                  null,
+	                  _react2.default.createElement('i', { className: 'fa fa-phone', 'aria-hidden': 'true' }),
+	                  '  ',
+	                  doctor.phone
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  null,
+	                  _react2.default.createElement('i', { className: 'fa fa-envelope', 'aria-hidden': 'true' }),
+	                  '  ',
+	                  doctor.email
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  null,
+	                  _react2.default.createElement('i', { className: 'fa fa-map-marker', 'aria-hidden': 'true' }),
+	                  '  ',
+	                  doctor.address
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  null,
+	                  _react2.default.createElement('i', { className: 'fa fa-stethoscope', 'aria-hidden': 'true' }),
+	                  '  ',
+	                  doctor.specialty
 	                )
-	              )
-	            );
-	          }, this)
-	        ),
-	        _react2.default.createElement(
-	          'h3',
-	          null,
-	          ' Your Doctors '
-	        ),
-	        this.state.doctors.map(function (doctor, idx) {
-	          return _react2.default.createElement(
-	            'div',
-	            { className: 'doctor-view-container', key: idx },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'doctor-top-bar' },
-	              _react2.default.createElement(
-	                'p',
-	                { className: 'doctor-name' },
-	                doctor.name
-	              ),
-	              _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true', onClick: _this2.deleteDoc.bind(_this2, idx) })
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              _react2.default.createElement('i', { className: 'fa fa-phone', 'aria-hidden': 'true' }),
-	              '  ',
-	              doctor.phone
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              _react2.default.createElement('i', { className: 'fa fa-envelope', 'aria-hidden': 'true' }),
-	              '  ',
-	              doctor.email
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              _react2.default.createElement('i', { className: 'fa fa-map-marker', 'aria-hidden': 'true' }),
-	              '  ',
-	              doctor.address
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              _react2.default.createElement('i', { className: 'fa fa-stethoscope', 'aria-hidden': 'true' }),
-	              '  ',
-	              doctor.specialty
-	            )
-	          );
-	        }, this)
+	              );
+	            }, this)
+	          )
+	        )
 	      );
 	    }
 	  }]);
