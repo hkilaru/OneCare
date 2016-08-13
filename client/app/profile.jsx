@@ -192,7 +192,7 @@ export default class Profile extends React.Component {
 
 
   componentDidMount() {
-    console.log("component has mounteD!!!");
+    console.log("component has mounted!!!");
     this.getScripts();
     this.getDocs();
     // this.getZip();
@@ -203,13 +203,8 @@ export default class Profile extends React.Component {
       <div className='profile-container'>
         <Navigate />
         <h1> My Profile </h1>
-        <ButtonToolbar>
-          <Button bsStyle="success" onClick={this.openModalScript}> New Prescription </Button>
-          <Button bsStyle="success" onClick={this.openModalDoctor}> New Doctor </Button>
-        </ButtonToolbar>
-        <br/><br/>
         <div>
-          <div> Input Zipcode</div><input type="text" onChange={(event) => {this.setState({inputZip: event.target.value})}}/>
+          <input placeholder='Input Zipcode' type="text" onChange={(event) => {this.setState({inputZip: event.target.value})}}/>
           <Button bsStyle="info" onClick={this.openModalMap}> Nearest Pharmacy </Button>
         </div>
 
@@ -243,7 +238,10 @@ export default class Profile extends React.Component {
         </Modal>
       <div className="scripts-doctors">
       <div className='scripts-container'>
-      <h3 className='scripts-title'> Scripts </h3>
+      <div className='scripts-header'>
+        <div className='scripts-title'> Scripts </div>
+        <Button bsStyle="success" bsSize='small' onClick={this.openModalScript}> <div> <i className="fa fa-plus-circle" aria-hidden="true"></i> Prescription </div> </Button>
+      </div>
              {
               this.state.scripts.map((script, idx) => {
                 return (
@@ -258,7 +256,10 @@ export default class Profile extends React.Component {
             }
           </div>
         <div className='doctors-container'>
-          <h3 className='doctors-title'> Doctors </h3>
+        <div className='doctors-header'>
+          <div className='doctors-title'> Doctors </div>
+          <Button bsStyle="success" bsSize='small' onClick={this.openModalDoctor}> <div> <i className="fa fa-plus-circle" aria-hidden="true"></i> Doctor </div> </Button>
+        </div>
               {
                 this.state.doctors.map((doctor, idx) => {
                   return (
