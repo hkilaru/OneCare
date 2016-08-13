@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import $ from 'jquery';
 import Navigate from './navigate.jsx';
 import ScriptRemind from './scriptRemind.jsx';
-import Modal from 'react-modal';
 import DoctorEntryView from './doctorEntryView.jsx';
 import Map from './map.jsx';
 import _ from 'lodash';
+import { Modal, Button, ButtonToolbar } from 'react-bootstrap';
 
 export default class Profile extends React.Component {
   constructor(props) {
@@ -92,6 +92,7 @@ export default class Profile extends React.Component {
   }
 
   openModalScript() {
+    console.log("open modal script called");
     this.setState({
       scriptmodalIsOpen: true
     });
@@ -202,41 +203,43 @@ export default class Profile extends React.Component {
       <div className='profile-container'>
         <Navigate />
         <h1> My Profile </h1>
-        <button onClick={this.openModalScript}> New Prescription </button>
-        <button onClick={this.openModalDoctor}> New Doctor </button> <br/><br/>
+        <ButtonToolbar>
+          <Button bsStyle="success" onClick={this.openModalScript}> New Prescription </Button>
+          <Button bsStyle="success" onClick={this.openModalDoctor}> New Doctor </Button>
+        </ButtonToolbar>
+        <br/><br/>
         <div>
           <div> Input Zipcode</div><input type="text" onChange={(event) => {this.setState({inputZip: event.target.value})}}/>
-          <button onClick={this.openModalMap}> Nearest Pharmacy </button>
+          <Button bsStyle="info" onClick={this.openModalMap}> Nearest Pharmacy </Button>
         </div>
 
         <Modal
-          isOpen={this.state.scriptmodalIsOpen}
-          shouldCloseOnOverlayClick={false}
+          show={this.state.scriptmodalIsOpen}
+          // shouldCloseOnOverlayClick={false}
         >
             <ScriptRemind
             closeFn={this.closeModalScript} />
-            <button onClick={this.closeModalScript}>Exit</button>
+            <Button onClick={this.closeModalScript}>Exit</Button>
 
         </Modal>
 
         <Modal
-
-          isOpen={this.state.docmodalIsOpen}
-          shouldCloseOnOverlayClick={false}
+          show={this.state.docmodalIsOpen}
+          bsSize='small'
         >
             <DoctorEntryView
             closeFn={this.closeModalDoctor} />
-            <button onClick={this.closeModalDoctor}>Exit</button>
+            <Button onClick={this.closeModalDoctor}>Exit</Button>
         </Modal>
 
         <Modal
-          isOpen={this.state.mapmodalIsOpen}
+          show={this.state.mapmodalIsOpen}
           shouldCloseOnOverlayClick={false}
         >
           <Map
           zipcode = {this.state.inputZip}
           />
-          <button onClick={this.closeModalMap}>Exit</button>
+          <Button onClick={this.closeModalMap}>Exit</Button>
         </Modal>
       <div className="scripts-doctors">
       <div className='scripts-container'>
