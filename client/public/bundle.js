@@ -42024,7 +42024,7 @@
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'scripts-title' },
-	              ' Scripts '
+	              ' Prescriptions '
 	            ),
 	            _react2.default.createElement(
 	              'div',
@@ -42051,7 +42051,7 @@
 	              ),
 	              _react2.default.createElement(
 	                _reactBootstrap.Button,
-	                { bsStyle: 'success', onClick: this.openModalScript },
+	                { bsClass: 'btn orange', onClick: this.openModalScript },
 	                ' ',
 	                _react2.default.createElement(
 	                  'div',
@@ -42117,15 +42117,15 @@
 	            { className: 'doctors-container' },
 	            _react2.default.createElement(
 	              'div',
+	              { className: 'doctors-title' },
+	              ' Doctors '
+	            ),
+	            _react2.default.createElement(
+	              'div',
 	              { className: 'doctors-header' },
 	              _react2.default.createElement(
-	                'div',
-	                { className: 'doctors-title' },
-	                ' Doctors '
-	              ),
-	              _react2.default.createElement(
 	                _reactBootstrap.Button,
-	                { bsStyle: 'success', onClick: this.openModalDoctor },
+	                { bsClass: 'btn orange', onClick: this.openModalDoctor },
 	                ' ',
 	                _react2.default.createElement(
 	                  'div',

@@ -235,13 +235,13 @@ export default class Profile extends React.Component {
         </Modal>
       <div className="scripts-doctors">
       <div className='scripts-container'>
-      <div className='scripts-title'> Scripts </div>
+      <div className='scripts-title'> Prescriptions </div>
         <div className='scripts-header'>
             <div>
               <input className='zipcode-input' placeholder='Zipcode' type="text" onChange={(event) => {this.setState({inputZip: event.target.value})}}/>
               <Button bsStyle="info" onClick={this.openModalMap}> <div> <i className="fa fa-search" aria-hidden="true"></i> Pharmacy </div> </Button>
             </div>
-            <Button bsStyle="success" onClick={this.openModalScript}> <div> <i className="fa fa-plus-circle" aria-hidden="true"></i> Prescription </div> </Button>
+            <Button bsClass='btn orange' onClick={this.openModalScript}> <div> <i className="fa fa-plus-circle" aria-hidden="true"></i> Prescription </div> </Button>
         </div>
              {
               this.state.scripts.map((script, idx) => {
@@ -257,9 +257,9 @@ export default class Profile extends React.Component {
             }
         </div>
         <div className='doctors-container'>
+        <div className='doctors-title'> Doctors </div>
         <div className='doctors-header'>
-          <div className='doctors-title'> Doctors </div>
-          <Button bsStyle="success" onClick={this.openModalDoctor}> <div> <i className="fa fa-plus-circle" aria-hidden="true"></i> Doctor </div> </Button>
+          <Button bsClass='btn orange' onClick={this.openModalDoctor}> <div> <i className="fa fa-plus-circle" aria-hidden="true"></i> Doctor </div> </Button>
         </div>
               {
                 this.state.doctors.map((doctor, idx) => {
