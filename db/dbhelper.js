@@ -64,7 +64,6 @@ var dbFunc = {
 			if(err){
 				console.log('error in fetching scripts', err);
 			}
-			console.log('these are the found scripts for user: ', found.scripts);
 			res.send(found.scripts);
 		});
 	},
@@ -207,7 +206,6 @@ var dbFunc = {
 				if (err) {
 					console.log(err);
 				}
-				console.log('New sympson added!');
 				res.send(newSymptom);
 			});
 	},
@@ -249,7 +247,6 @@ var dbFunc = {
 							console.log("parameters so far", i, refillDate, time[i]);
 							request(options, function (error, response, body) { //POST to Iron Worker to schedule the recurring texts
 							  if (error) throw new Error(error);
-								console.log("HOT BODY", body);
 								if(body.schedules){
 									Model.script.findOneAndUpdate({"_id": scriptID}, { //add ironID to script document
 										$push: {
@@ -295,6 +292,21 @@ var dbFunc = {
 
 						request(options, function (error, response, body) { //POST to Iron Worker to schedule the recurring texts
 							if (error) throw new Error(error);
+							console.log("body.schedules for reminder Date", body.schedules)
+							if(body.schedules){
+								Model.script.findOneAndUpdate({"_id": scriptID}, { //add ironID to script document
+									$push: {
+										reminderID: body.schedules[0].id,
+									}
+								})
+								.then(function(){
+									console.log("reminderID for DATE added");
+								})
+								.catch(function(err){
+									console.log("reminderID for DATE not added", err);
+								})
+
+							}
 						});
 				}
 	});
