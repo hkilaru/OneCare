@@ -204,10 +204,6 @@ export default class Profile extends React.Component {
     return (
       <div className='profile-container'>
         <Navigate />
-        <div>
-          <input placeholder='Input Zipcode' type="text" onChange={(event) => {this.setState({inputZip: event.target.value})}}/>
-          <Button bsStyle="info" onClick={this.openModalMap}> Nearest Pharmacy </Button>
-        </div>
 
         <Modal
           show={this.state.scriptmodalIsOpen}
@@ -239,9 +235,13 @@ export default class Profile extends React.Component {
         </Modal>
       <div className="scripts-doctors">
       <div className='scripts-container'>
+      <div className='scripts-title'> Scripts </div>
         <div className='scripts-header'>
-          <div className='scripts-title'> Scripts </div>
-          <Button bsStyle="success" onClick={this.openModalScript}> <div> <i className="fa fa-plus-circle" aria-hidden="true"></i> Prescription </div> </Button>
+            <div>
+              <input className='zipcode-input' placeholder='Zipcode' type="text" onChange={(event) => {this.setState({inputZip: event.target.value})}}/>
+              <Button bsStyle="info" onClick={this.openModalMap}> <div> <i className="fa fa-search" aria-hidden="true"></i> Pharmacy </div> </Button>
+            </div>
+            <Button bsStyle="success" onClick={this.openModalScript}> <div> <i className="fa fa-plus-circle" aria-hidden="true"></i> Prescription </div> </Button>
         </div>
              {
               this.state.scripts.map((script, idx) => {

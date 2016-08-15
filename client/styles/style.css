@@ -99,7 +99,7 @@ ul {
 
 .doctors-container {
   float:right;
-  width: 500px;
+  width: 550px;
   margin-top: 10px;
   margin-left: 20px;
   padding: 10px;
@@ -137,12 +137,22 @@ ul {
 
 /*********** SCRIPTS ***********/
 
+.zipcode-input {
+  width: 70px;
+  height: 34px;
+  padding-bottom: 2px;
+  margin-right: 5px;
+  text-align: center;
+  border-radius: 5px;
+   padding:2px;
+}
 .scripts-header{
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-left: 15px;
   padding-right: 15px;
+  padding-bottom: 8px;
 
 }
 .scripts-doctors {
@@ -151,14 +161,17 @@ ul {
 }
 .scripts-container {
   float:left;
-  width: 500px;
+  width: 550px;
   margin-top: 10px;
   margin-right: 20px;
   padding: 10px;
   background-color: #191970;
+  border-radius: 7px;
+   padding:5px;
 }
 
 .scripts-title {
+  text-align: center;
   font-size: 30pt;
   color: white;
   font-weight: lighter;

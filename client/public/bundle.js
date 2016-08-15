@@ -41973,18 +41973,6 @@
 	        { className: 'profile-container' },
 	        _react2.default.createElement(_navigate2.default, null),
 	        _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement('input', { placeholder: 'Input Zipcode', type: 'text', onChange: function onChange(event) {
-	              _this2.setState({ inputZip: event.target.value });
-	            } }),
-	          _react2.default.createElement(
-	            _reactBootstrap.Button,
-	            { bsStyle: 'info', onClick: this.openModalMap },
-	            ' Nearest Pharmacy '
-	          )
-	        ),
-	        _react2.default.createElement(
 	          _reactBootstrap.Modal,
 	          {
 	            show: this.state.scriptmodalIsOpen
@@ -42035,11 +42023,31 @@
 	            { className: 'scripts-container' },
 	            _react2.default.createElement(
 	              'div',
+	              { className: 'scripts-title' },
+	              ' Scripts '
+	            ),
+	            _react2.default.createElement(
+	              'div',
 	              { className: 'scripts-header' },
 	              _react2.default.createElement(
 	                'div',
-	                { className: 'scripts-title' },
-	                ' Scripts '
+	                null,
+	                _react2.default.createElement('input', { className: 'zipcode-input', placeholder: 'Zipcode', type: 'text', onChange: function onChange(event) {
+	                    _this2.setState({ inputZip: event.target.value });
+	                  } }),
+	                _react2.default.createElement(
+	                  _reactBootstrap.Button,
+	                  { bsStyle: 'info', onClick: this.openModalMap },
+	                  ' ',
+	                  _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    ' ',
+	                    _react2.default.createElement('i', { className: 'fa fa-search', 'aria-hidden': 'true' }),
+	                    ' Pharmacy '
+	                  ),
+	                  ' '
+	                )
 	              ),
 	              _react2.default.createElement(
 	                _reactBootstrap.Button,

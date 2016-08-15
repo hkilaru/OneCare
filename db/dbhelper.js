@@ -51,7 +51,6 @@ var dbFunc = {
 					res.send(new Error("script not added to user document"));
 				}
 				//call set reminder function
-				console.log("set reminder about to be called");
 				this.setReminder(script.username, newScript._id, message, script.reminderTime, script.refill, script.name, next); //script.reminderTime is an array of times
 			}.bind(this));
 		}.bind(this));
@@ -211,8 +210,6 @@ var dbFunc = {
 	},
 
 	setReminder: function(username, scriptID, message, time, refillDate, drugName, next) { //time is an array
-
-		console.log("sendReminder called for", username, "with the message:", message);
 		// look up user object and find their phone number
 				Model.user.findOne({"username": username}, function(err, user){
 										"use strict";
@@ -221,7 +218,6 @@ var dbFunc = {
 					}
 					var phoneNum = "+" + user.phone;
 					console.log("Number on file", phoneNum);
-					console.log("payload", JSON.stringify({phone: phoneNum, message: message}));
 					for(let i = 0; i < time.length; i++) {
 						if(time[i] !== null){
 							var options = {
@@ -244,7 +240,6 @@ var dbFunc = {
 								},
 							  json: true
 							};
-							console.log("parameters so far", i, refillDate, time[i]);
 							request(options, function (error, response, body) { //POST to Iron Worker to schedule the recurring texts
 							  if (error) throw new Error(error);
 								if(body.schedules){
@@ -254,9 +249,7 @@ var dbFunc = {
 										}
 									})
 									.then(function(res) {
-										console.log("script has been saved and the reminder ID is set!!");
 										next("reminder has been saved");
-
 									})
 									.catch(function(err) {
 										next(new Error("reminder has not been saved", err));
@@ -292,7 +285,6 @@ var dbFunc = {
 
 						request(options, function (error, response, body) { //POST to Iron Worker to schedule the recurring texts
 							if (error) throw new Error(error);
-							console.log("body.schedules for reminder Date", body.schedules)
 							if(body.schedules){
 								Model.script.findOneAndUpdate({"_id": scriptID}, { //add ironID to script document
 									$push: {
