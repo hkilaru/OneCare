@@ -5,7 +5,7 @@ import ScriptRemind from './scriptRemind.jsx';
 import DoctorEntryView from './doctorEntryView.jsx';
 import Map from './map.jsx';
 import _ from 'lodash';
-import { Modal, Button, ButtonToolbar } from 'react-bootstrap';
+import { Modal, Button, ButtonToolbar, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 export default class Profile extends React.Component {
   constructor(props) {
@@ -241,7 +241,9 @@ export default class Profile extends React.Component {
       <div className='scripts-container'>
         <div className='scripts-header'>
           <div className='scripts-title'> Scripts </div>
-          <Button bsStyle="success" onClick={this.openModalScript}> <div> <i className="fa fa-plus-circle" aria-hidden="true"></i> Prescription </div> </Button>
+          <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip">Click to add a new prescription</Tooltip>}>
+            <Button bsStyle="success"  bsSize='large' onClick={this.openModalScript}> <div> <i className="fa fa-plus-circle" aria-hidden="true"></i> Prescription </div> </Button>
+          </OverlayTrigger>
         </div>
              {
               this.state.scripts.map((script, idx) => {
@@ -259,7 +261,9 @@ export default class Profile extends React.Component {
         <div className='doctors-container'>
         <div className='doctors-header'>
           <div className='doctors-title'> Doctors </div>
-          <Button bsStyle="success" onClick={this.openModalDoctor}> <div> <i className="fa fa-plus-circle" aria-hidden="true"></i> Doctor </div> </Button>
+          <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip">Click to add a new doctor</Tooltip>}>
+            <Button bsStyle="success" bsSize='large' onClick={this.openModalDoctor}> <div> <i className="fa fa-plus-circle" aria-hidden="true"></i> Doctor </div> </Button>
+          </OverlayTrigger>
         </div>
               {
                 this.state.doctors.map((doctor, idx) => {

@@ -1,12 +1,31 @@
-body {
-  background-color: #FFFFFF;
+html, body {
+  background-color: #27408B;
   font-family: 'Lato', sans-serif;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
 ul {
   list-style-type: none;
 }
 
+.under-construction {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  font-size: 18px;
+  color: #FFFFFF;
+  font-weight: lighter;
+
+}
+
+.white {
+  color: #FFFFFF;
+}
 .title {
   color: #FFFFFF;
   padding-left: 15px;
@@ -99,7 +118,7 @@ ul {
 
 .doctors-container {
   float:right;
-  width: 500px;
+  width: 550px;
   margin-top: 10px;
   margin-left: 20px;
   padding: 10px;
@@ -151,7 +170,7 @@ ul {
 }
 .scripts-container {
   float:left;
-  width: 500px;
+  width: 550px;
   margin-top: 10px;
   margin-right: 20px;
   padding: 10px;

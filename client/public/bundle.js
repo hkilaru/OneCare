@@ -42042,17 +42042,25 @@
 	                ' Scripts '
 	              ),
 	              _react2.default.createElement(
-	                _reactBootstrap.Button,
-	                { bsStyle: 'success', onClick: this.openModalScript },
-	                ' ',
+	                _reactBootstrap.OverlayTrigger,
+	                { placement: 'top', overlay: _react2.default.createElement(
+	                    _reactBootstrap.Tooltip,
+	                    { id: 'tooltip' },
+	                    'Click to add a new prescription'
+	                  ) },
 	                _react2.default.createElement(
-	                  'div',
-	                  null,
+	                  _reactBootstrap.Button,
+	                  { bsStyle: 'success', bsSize: 'large', onClick: this.openModalScript },
 	                  ' ',
-	                  _react2.default.createElement('i', { className: 'fa fa-plus-circle', 'aria-hidden': 'true' }),
-	                  ' Prescription '
-	                ),
-	                ' '
+	                  _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    ' ',
+	                    _react2.default.createElement('i', { className: 'fa fa-plus-circle', 'aria-hidden': 'true' }),
+	                    ' Prescription '
+	                  ),
+	                  ' '
+	                )
 	              )
 	            ),
 	            this.state.scripts.map(function (script, idx) {
@@ -42116,17 +42124,25 @@
 	                ' Doctors '
 	              ),
 	              _react2.default.createElement(
-	                _reactBootstrap.Button,
-	                { bsStyle: 'success', onClick: this.openModalDoctor },
-	                ' ',
+	                _reactBootstrap.OverlayTrigger,
+	                { placement: 'top', overlay: _react2.default.createElement(
+	                    _reactBootstrap.Tooltip,
+	                    { id: 'tooltip' },
+	                    'Click to add a new doctor'
+	                  ) },
 	                _react2.default.createElement(
-	                  'div',
-	                  null,
+	                  _reactBootstrap.Button,
+	                  { bsStyle: 'success', bsSize: 'large', onClick: this.openModalDoctor },
 	                  ' ',
-	                  _react2.default.createElement('i', { className: 'fa fa-plus-circle', 'aria-hidden': 'true' }),
-	                  ' Doctor '
-	                ),
-	                ' '
+	                  _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    ' ',
+	                    _react2.default.createElement('i', { className: 'fa fa-plus-circle', 'aria-hidden': 'true' }),
+	                    ' Doctor '
+	                  ),
+	                  ' '
+	                )
 	              )
 	            ),
 	            this.state.doctors.map(function (doctor, idx) {
