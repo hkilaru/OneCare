@@ -37,7 +37,7 @@ app.post('/api/user/zip', function(req, res) {
 });
 
 app.post('/api/email/receive', function(req, res){
-  console.log("IAN request received at receiveEmail", req);
+  console.log("IAN request received at receiveEmail", req['body-plain']);
   dbHelpers.receiveEmail(req, res);
 })
 app.post('/api/email/send', function(req, res, next){
