@@ -21,8 +21,8 @@ var dbFunc = {
 		var data = {
 		  from: 'Excited User <harish@app25011ddcdf3a4f38b11f9b60d62e1106.mailgun.org>',
 		  to: 'hckilaru@gmail.com',
-		  subject: 'MAILGUN TEST',
-		  text: 'MAILGUN WORKS!!!!!!'
+		  subject: 'MAILGUN Reply Test',
+		  text: 'TEST Reply!!!!!!'
 		};
 
 		mailgun.messages().send(data, function (error, body) {
