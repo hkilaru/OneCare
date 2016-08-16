@@ -18,7 +18,6 @@ var dbFunc = {
 
 	receiveEmail: function(message, res){
 		console.log("receiveEmail called!!");
-		console.log("IAN message", message);
 		this.sendEmail(message, res);
 	},
 
@@ -32,9 +31,9 @@ var dbFunc = {
 
 		mailgun.messages().send(data, function (error, body) {
 			if(error){
-				console.log("email not sent", error);
+				console.log("FUCK THIS", error);
 			}
-			console.log('BODY!!', body);
+			console.log('email sent!', body);
 			res.sendStatus(200);
 		});
 
