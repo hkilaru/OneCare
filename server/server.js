@@ -37,7 +37,7 @@ app.post('/api/user/zip', function(req, res) {
 });
 
 app.post('/api/email/receive/mime', function(req, res){
-  console.log("KENTON request received at receiveEmail", req.body);
+  console.log("DAN request received at MIME", req);
   dbHelpers.receiveEmail(req, res);
 })
 app.post('/api/email/send', function(req, res, next){
