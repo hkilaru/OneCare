@@ -37,8 +37,8 @@ app.post('/api/user/zip', function(req, res) {
 });
 
 app.post('/api/email/receive', function(req, res){
-  console.log("HARISH request received at receiveEmail", req);
-  dbHelpers.sendEmail(req, res);
+  console.log("IAN request received at receiveEmail", req);
+  dbHelpers.receiveEmail(req, res);
 })
 app.post('/api/email/send', function(req, res, next){
   console.log("request recieved at sendEmail");

@@ -16,11 +16,17 @@ var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
 
 var dbFunc = {
 
+	receiveEmail: function(message, res){
+		console.log("receiveEmail called!!");
+		console.log("IAN message", message);
+		this.sendEmail(message, res);
+	}
+
 	sendEmail: function(message, res){
 		var data = {
 		  from: 'Excited User <harish@app25011ddcdf3a4f38b11f9b60d62e1106.mailgun.org>',
 		  to: 'hckilaru@gmail.com',
-		  subject: 'Whats it say??',
+		  subject: 'ANOTHA ONE',
 		  text: message
 		};
 
@@ -29,7 +35,7 @@ var dbFunc = {
 				console.log("email not sent", error);
 			}
 			console.log('BODY!!', body);
-			res.send(body);
+			res.sendStatus(200);
 		});
 
 	},
