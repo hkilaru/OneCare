@@ -37475,28 +37475,29 @@
 	        'div',
 	        { className: 'navbar-container' },
 	        _react2.default.createElement(
-	          _reactBootstrap.PageHeader,
-	          { className: 'topName' },
+	          'h1',
+	          { className: 'title' },
 	          'OneCare'
 	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'top' },
-	          _react2.default.createElement('img', { className: 'logo', src: 'https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/12316641_10105768042772978_923906279489141499_n.jpg?oh=bbb5b2be0e9bba21d5b33d879a199c4e&oe=58574F1F' })
-	        ),
+	        _react2.default.createElement('div', { className: 'top' }),
 	        _react2.default.createElement(
 	          'div',
 	          { onClick: function onClick() {
 	              window.localStorage.removeItem("username");window.localStorage.removeItem("token");
 	            } },
 	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/signin' },
+	            'div',
+	            { className: 'logout' },
 	            _react2.default.createElement(
-	              _reactBootstrap.Button,
-	              { bsSize: 'large', bsStyle: 'danger' },
-	              'Logout'
-	            )
+	              _reactRouter.Link,
+	              { to: '/signin' },
+	              _react2.default.createElement(
+	                _reactBootstrap.Button,
+	                { bsSize: 'large', bsStyle: 'danger' },
+	                'Logout'
+	              )
+	            ),
+	            ' '
 	          )
 	        )
 	      );
@@ -60774,7 +60775,7 @@
 	                  } }),
 	                _react2.default.createElement(
 	                  _reactBootstrap.Button,
-	                  { bsStyle: 'info', onClick: this.openModalMap },
+	                  { bsStyle: 'success', onClick: this.openModalMap },
 	                  ' ',
 	                  _react2.default.createElement(
 	                    'div',
@@ -60788,7 +60789,7 @@
 	              ),
 	              _react2.default.createElement(
 	                _reactBootstrap.Button,
-	                { bsClass: 'btn orange', onClick: this.openModalScript },
+	                { bsClass: 'btn midnight-blue', onClick: this.openModalScript },
 	                ' ',
 	                _react2.default.createElement(
 	                  'div',
@@ -60868,13 +60869,13 @@
 	                  'div',
 	                  null,
 	                  ' ',
-	                  _react2.default.createElement('i', { className: 'fa fa-plus-circle', 'aria-hidden': 'true' }),
+	                  _react2.default.createElement('i', { className: 'fa fa-stethoscope', 'aria-hidden': 'true' }),
 	                  ' Recommend '
 	                )
 	              ),
 	              _react2.default.createElement(
 	                _reactBootstrap.Button,
-	                { bsClass: 'btn orange', onClick: this.openModalDoctor },
+	                { bsClass: 'btn midnight-blue', onClick: this.openModalDoctor },
 	                ' ',
 	                _react2.default.createElement(
 	                  'div',

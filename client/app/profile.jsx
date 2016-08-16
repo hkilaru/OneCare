@@ -235,7 +235,6 @@ export default class Profile extends React.Component {
     return (
       <div className='profile-container'>
         <Navigate />
-
         <Modal show={this.state.scriptmodalIsOpen}>
             <div className="modal-button-close-container">
               <div className='modal-button-close' onClick={this.closeModalScript}><i className="fa fa-times-circle" aria-hidden="true"></i></div>
@@ -285,9 +284,9 @@ export default class Profile extends React.Component {
         <div className='scripts-header'>
             <div>
               <input className='zipcode-input' placeholder='Zipcode' type="text" onChange={(event) => {this.setState({inputZip: event.target.value})}}/>
-              <Button bsStyle="info" onClick={this.openModalMap}> <div> <i className="fa fa-search" aria-hidden="true"></i> Pharmacy </div> </Button>
+              <Button bsStyle='success' onClick={this.openModalMap}> <div> <i className="fa fa-search" aria-hidden="true"></i> Pharmacy </div> </Button>
             </div>
-            <Button bsClass='btn orange' onClick={this.openModalScript}> <div> <i className="fa fa-plus-circle" aria-hidden="true"></i> Prescription </div> </Button>
+            <Button bsClass='btn midnight-blue' onClick={this.openModalScript}> <div> <i className="fa fa-plus-circle" aria-hidden="true"></i> Prescription </div> </Button>
         </div>
              {
               this.state.scripts.map((script, idx) => {
@@ -305,8 +304,8 @@ export default class Profile extends React.Component {
         <div className='doctors-container'>
         <div className='doctors-title'> Doctors </div>
         <div className='doctors-header'>
-          <Button bsStyle="success" bsSize='small' onClick={this.openModalSymptom}> <div> <i className="fa fa-plus-circle" aria-hidden="true"></i> Recommend </div></Button>
-          <Button bsClass='btn orange' onClick={this.openModalDoctor}> <div> <i className="fa fa-plus-circle" aria-hidden="true"></i> Doctor </div> </Button>
+          <Button bsStyle="success" bsSize='small' onClick={this.openModalSymptom}> <div> <i className="fa fa-stethoscope" aria-hidden="true"></i> Recommend </div></Button>
+          <Button bsClass='btn midnight-blue' onClick={this.openModalDoctor}> <div> <i className="fa fa-plus-circle" aria-hidden="true"></i> Doctor </div> </Button>
         </div>
               {
                 this.state.doctors.map((doctor, idx) => {

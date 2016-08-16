@@ -29,15 +29,14 @@ componentDidMount(){
   render() {
     return(
       <div className="navbar-container">
-        <PageHeader className='topName'>OneCare</PageHeader>
-        <div className="top"> 
-          <img className='logo' src='https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/12316641_10105768042772978_923906279489141499_n.jpg?oh=bbb5b2be0e9bba21d5b33d879a199c4e&oe=58574F1F'></img>
+        <h1 className='title'>OneCare</h1>
+        <div className="top">
+          {/* <img className='logo' src='https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/12316641_10105768042772978_923906279489141499_n.jpg?oh=bbb5b2be0e9bba21d5b33d879a199c4e&oe=58574F1F'></img> */}
         </div>
         <div onClick={() => {window.localStorage.removeItem("username"); window.localStorage.removeItem("token");}}>
-          <Link to='/signin'><Button bsSize='large' bsStyle='danger' >Logout</Button></Link>
+          <div className='logout'><Link to='/signin'><Button bsSize='large' bsStyle='danger' >Logout</Button></Link> </div>
         </div>
       </div>
     );
   }
 }
-
