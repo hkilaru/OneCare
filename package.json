@@ -37,6 +37,7 @@
     "jquery": "^2.2.1",
     "jwt-simple": "^0.2.0",
     "lodash": "^4.6.1",
+    "mailgun-js": "^0.7.12",
     "moment": "^2.14.1",
     "moment-range": "^2.2.0",
     "mongo": "^0.1.0",

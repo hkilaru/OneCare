@@ -7,11 +7,33 @@ var client = new twilio.RestClient(accountSid, authToken);
 var ObjectId = require('mongoose').Types.ObjectId;
 var http = require('http');
 var request = require("request");
+var api_key = 'key-417e9083f77969e4e9cf916a2ef8769c';
+var domain = 'app25011ddcdf3a4f38b11f9b60d62e1106.mailgun.org';
+var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
 
 
 
 
 var dbFunc = {
+
+
+	sendEmail: function(res){
+		var data = {
+		  from: 'Excited User <harish@app25011ddcdf3a4f38b11f9b60d62e1106.mailgun.org>',
+		  to: 'hckilaru@gmail.com',
+		  subject: 'MAILGUN TEST',
+		  text: 'MAILGUN WORKS!!!!!!'
+		};
+
+		mailgun.messages().send(data, function (error, body) {
+			if(error){
+				console.log("email not sent", error);
+			}
+			console.log('BODY!!', body);
+			res.send(body);
+		});
+
+	},
 
 	// GET USER ZIP CODE // SEND USERNAME STRING
 	getZip: function(username, res) {
