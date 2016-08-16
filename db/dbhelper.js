@@ -25,7 +25,7 @@ var dbFunc = {
 		var data = {
 		  from: 'Excited User <harish@app25011ddcdf3a4f38b11f9b60d62e1106.mailgun.org>',
 		  to: 'hckilaru@gmail.com',
-		  subject: 'ANOTHA ONE',
+		  subject: 'ONECARE',
 		  text: JSON.stringify(message)
 		};
 
