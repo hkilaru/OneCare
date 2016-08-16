@@ -36,7 +36,10 @@ app.post('/api/user/zip', function(req, res) {
   dbHelpers.getZip(username, res);
 });
 
-
+app.post('/api/email/receive', function(req, res){
+  console.log("request received at receiveEmail", req.body);
+  dbHelpers.sendEmail(req.body, res);
+})
 app.post('/api/email/send', function(req, res, next){
   console.log("request recieved at sendEmail");
   dbHelpers.sendEmail(res);

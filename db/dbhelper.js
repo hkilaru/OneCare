@@ -16,13 +16,12 @@ var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
 
 var dbFunc = {
 
-
-	sendEmail: function(res){
+	sendEmail: function(message, res){
 		var data = {
 		  from: 'Excited User <harish@app25011ddcdf3a4f38b11f9b60d62e1106.mailgun.org>',
 		  to: 'hckilaru@gmail.com',
-		  subject: 'MAILGUN Reply Test',
-		  text: 'TEST Reply!!!!!!'
+		  subject: 'Whats it say??',
+		  text: message
 		};
 
 		mailgun.messages().send(data, function (error, body) {
