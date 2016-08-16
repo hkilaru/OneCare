@@ -17,7 +17,10 @@ app.use("/styles", express.static(rootPath + "/styles"));
 app.use("/public", express.static(rootPath + '/public'));
 app.use("/server", express.static(__dirname + "/../server"));
 app.use("/assets", express.static(__dirname + "/../client/assets"));
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -36,9 +39,9 @@ app.post('/api/user/zip', function(req, res) {
   dbHelpers.getZip(username, res);
 });
 
-app.post('/api/email/receive/mime', function(req, res){
-  console.log("DAN request received at MIME", req);
-  dbHelpers.receiveEmail(req, res);
+app.post('/api/email/receive', function(req, res){
+  console.log("DAN request received at MIME", req.body);
+  dbHelpers.receiveEmail(req.body, res);
 })
 app.post('/api/email/send', function(req, res, next){
   console.log("request recieved at sendEmail");

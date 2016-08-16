@@ -18,7 +18,7 @@ var dbFunc = {
 
 	receiveEmail: function(message, res){
 		console.log("receiveEmail called!!");
-		this.sendEmail(message.body, res);
+		this.sendEmail(message, res);
 	},
 
 	sendEmail: function(message, res){
