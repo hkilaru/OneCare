@@ -37,12 +37,12 @@ app.post('/api/user/zip', function(req, res) {
 });
 
 app.post('/api/email/receive', function(req, res){
-  console.log("request received at receiveEmail", req.body);
-  dbHelpers.sendEmail(req.body, res);
+  console.log("request received at receiveEmail", req);
+  dbHelpers.sendEmail(req, res);
 })
 app.post('/api/email/send', function(req, res, next){
   console.log("request recieved at sendEmail");
-  dbHelpers.sendEmail(res);
+  dbHelpers.sendEmail(req.body.message, res);
 })
 // Add a new reminder to the reminder collection
 app.post('/api/reminder/add', function(req, res, next) {
