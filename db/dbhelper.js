@@ -22,6 +22,7 @@ var dbFunc = {
 	},
 
 	sendEmail: function(message, res){
+		console.log("message before JSONString", message);
 		var data = {
 		  from: 'Excited User <harish@app25011ddcdf3a4f38b11f9b60d62e1106.mailgun.org>',
 		  to: 'hckilaru@gmail.com',
