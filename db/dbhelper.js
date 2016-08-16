@@ -20,7 +20,7 @@ var dbFunc = {
 		console.log("receiveEmail called!!");
 		console.log("IAN message", message);
 		this.sendEmail(message, res);
-	}
+	},
 
 	sendEmail: function(message, res){
 		var data = {
