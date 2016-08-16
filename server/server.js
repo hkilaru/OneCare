@@ -40,8 +40,9 @@ app.post('/api/user/zip', function(req, res) {
 });
 
 app.post('/api/email/receive', function(req, res){
-  var message = req.body['body-plain'];
-  console.log("NEESHA request received", req.body['body-plain']);
+  var message = req.body['stripped-text'];
+  console.log("stripped text message", message);
+  console.log("from who?", req.body['From']);
   dbHelpers.receiveEmail(message, res);
 })
 app.post('/api/email/send', function(req, res, next){
