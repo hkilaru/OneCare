@@ -60911,12 +60911,12 @@
 	            { className: 'scripts-container' },
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'scripts-title' },
-	              ' Prescriptions '
-	            ),
-	            _react2.default.createElement(
-	              'div',
 	              { className: 'scripts-header' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'scripts-title' },
+	                ' Prescriptions '
+	              ),
 	              _react2.default.createElement(
 	                'div',
 	                null,
@@ -60924,31 +60924,31 @@
 	                    _this2.setState({ inputZip: event.target.value });
 	                  } }),
 	                _react2.default.createElement(
-	                  _reactBootstrap.Button,
-	                  { bsStyle: 'success', onClick: this.openModalMap },
-	                  ' ',
+	                  _reactBootstrap.OverlayTrigger,
+	                  { placement: 'top', overlay: _react2.default.createElement(
+	                      _reactBootstrap.Tooltip,
+	                      { id: 'tooltip' },
+	                      ' Find a nearby pharmacy'
+	                    ) },
 	                  _react2.default.createElement(
-	                    'div',
-	                    null,
+	                    _reactBootstrap.Button,
+	                    { bsStyle: 'info', onClick: this.openModalMap },
 	                    ' ',
-	                    _react2.default.createElement('i', { className: 'fa fa-search', 'aria-hidden': 'true' }),
-	                    ' Pharmacy '
-	                  ),
-	                  ' '
+	                    _react2.default.createElement(
+	                      'div',
+	                      null,
+	                      ' ',
+	                      _react2.default.createElement('i', { className: 'fa fa-search', 'aria-hidden': 'true' }),
+	                      ' Pharmacy '
+	                    ),
+	                    ' '
+	                  )
 	                )
 	              ),
 	              _react2.default.createElement(
-	                _reactBootstrap.Button,
-	                { bsClass: 'btn midnight-blue', onClick: this.openModalScript },
-	                ' ',
-	                _react2.default.createElement(
-	                  'div',
-	                  null,
-	                  ' ',
-	                  _react2.default.createElement('i', { className: 'fa fa-plus-circle', 'aria-hidden': 'true' }),
-	                  ' Prescription '
-	                ),
-	                ' '
+	                'div',
+	                { className: 'add-btn' },
+	                _react2.default.createElement('i', { className: 'fa fa-plus-circle white add', onClick: this.openModalScript, 'aria-hidden': 'true' })
 	              )
 	            ),
 	            this.state.scripts.map(function (script, idx) {
@@ -60972,7 +60972,7 @@
 	                      { placement: 'top', overlay: _react2.default.createElement(
 	                          _reactBootstrap.Tooltip,
 	                          { id: 'tooltip' },
-	                          ' Click to edit card.'
+	                          ' Click to edit card'
 	                        ) },
 	                      _react2.default.createElement(
 	                        'div',
@@ -61012,36 +61012,40 @@
 	            { className: 'doctors-container' },
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'doctors-title' },
-	              ' Doctors '
-	            ),
-	            _react2.default.createElement(
-	              'div',
 	              { className: 'doctors-header' },
 	              _react2.default.createElement(
-	                _reactBootstrap.Button,
-	                { bsStyle: 'success', bsSize: 'small', onClick: this.openModalSymptom },
-	                ' ',
+	                'div',
+	                { className: 'doctors-title' },
+	                ' Doctors '
+	              ),
+	              _react2.default.createElement(
+	                _reactBootstrap.OverlayTrigger,
+	                { placement: 'top', overlay: _react2.default.createElement(
+	                    _reactBootstrap.Tooltip,
+	                    { id: 'tooltip' },
+	                    ' Feeling sick? OneCare can recommend a specialist '
+	                  ) },
 	                _react2.default.createElement(
 	                  'div',
-	                  null,
-	                  ' ',
-	                  _react2.default.createElement('i', { className: 'fa fa-stethoscope', 'aria-hidden': 'true' }),
-	                  ' Recommend '
+	                  { className: 'rec-btn' },
+	                  _react2.default.createElement(
+	                    _reactBootstrap.Button,
+	                    { bsStyle: 'info', bsSize: 'small', onClick: this.openModalSymptom },
+	                    ' ',
+	                    _react2.default.createElement(
+	                      'div',
+	                      null,
+	                      ' ',
+	                      _react2.default.createElement('i', { className: 'fa fa-stethoscope', 'aria-hidden': 'true' }),
+	                      ' Recommend '
+	                    )
+	                  )
 	                )
 	              ),
 	              _react2.default.createElement(
-	                _reactBootstrap.Button,
-	                { bsClass: 'btn midnight-blue', onClick: this.openModalDoctor },
-	                ' ',
-	                _react2.default.createElement(
-	                  'div',
-	                  null,
-	                  ' ',
-	                  _react2.default.createElement('i', { className: 'fa fa-plus-circle', 'aria-hidden': 'true' }),
-	                  ' Doctor '
-	                ),
-	                ' '
+	                'div',
+	                { className: 'add-btn' },
+	                _react2.default.createElement('i', { className: 'fa fa-plus-circle white add', onClick: this.openModalDoctor, 'aria-hidden': 'true' })
 	              )
 	            ),
 	            this.state.doctors.map(function (doctor, idx) {
@@ -61067,7 +61071,7 @@
 	                        { placement: 'top', overlay: _react2.default.createElement(
 	                            _reactBootstrap.Tooltip,
 	                            { id: 'tooltip' },
-	                            ' Click to edit card.'
+	                            ' Click to edit card'
 	                          ) },
 	                        _react2.default.createElement(
 	                          'div',
@@ -61135,7 +61139,7 @@
 	                    { placement: 'top', overlay: _react2.default.createElement(
 	                        _reactBootstrap.Tooltip,
 	                        { id: 'tooltip' },
-	                        ' Click to view doctor\'s notes.'
+	                        ' Click to view doctor\'s notes'
 	                      ) },
 	                    _react2.default.createElement(
 	                      'div',

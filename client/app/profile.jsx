@@ -383,14 +383,18 @@ export default class Profile extends React.Component {
 
       <div className="scripts-doctors">
       <div className='scripts-container'>
-      <div className='scripts-title'> Prescriptions </div>
-        <div className='scripts-header'>
-            <div>
-              <input className='zipcode-input' placeholder='Zipcode' type="text" onChange={(event) => {this.setState({inputZip: event.target.value})}}/>
-              <Button bsStyle='success' onClick={this.openModalMap}> <div> <i className="fa fa-search" aria-hidden="true"></i> Pharmacy </div> </Button>
-            </div>
-            <Button bsClass='btn midnight-blue' onClick={this.openModalScript}> <div> <i className="fa fa-plus-circle" aria-hidden="true"></i> Prescription </div> </Button>
+      <div className='scripts-header'>
+        <div className='scripts-title'> Prescriptions </div>
+        <div>
+          <input className='zipcode-input' placeholder='Zipcode' type="text" onChange={(event) => {this.setState({inputZip: event.target.value})}}/>
+          <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip"> Find a nearby pharmacy</Tooltip>}>
+            <Button bsStyle='info' onClick={this.openModalMap}> <div> <i className="fa fa-search" aria-hidden="true"></i> Pharmacy </div> </Button>
+          </OverlayTrigger>
         </div>
+        <div className='add-btn'>
+          <i className="fa fa-plus-circle white add" onClick={this.openModalScript} aria-hidden="true"></i>
+        </div>
+      </div>
              {
               this.state.scripts.map((script, idx) => {
                 return (
@@ -398,7 +402,7 @@ export default class Profile extends React.Component {
                     <div className="script-top-bar">
                       <div className="doc-top-first-half">
                         <p className="script-name"> {script.name}</p>
-                        <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip"> Click to edit card.</Tooltip>}>
+                        <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip"> Click to edit card</Tooltip>}>
                           <div className='edit-icon'>
                             <i className="fa fa-pencil-square-o pencil" aria-hidden="true" onClick={this.openEditModalScript.bind(this,idx)}></i>
                           </div>{/* <a target="_blank" href={"https://simple.wikipedia.org/wiki/" + script.name}>(get more info)</a>*/}
@@ -421,10 +425,16 @@ export default class Profile extends React.Component {
             }
           </div>
         <div className='doctors-container'>
-        <div className='doctors-title'> Doctors </div>
         <div className='doctors-header'>
-          <Button bsStyle="success" bsSize='small' onClick={this.openModalSymptom}> <div> <i className="fa fa-stethoscope" aria-hidden="true"></i> Recommend </div></Button>
-          <Button bsClass='btn midnight-blue' onClick={this.openModalDoctor}> <div> <i className="fa fa-plus-circle" aria-hidden="true"></i> Doctor </div> </Button>
+          <div className='doctors-title'> Doctors </div>
+          <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip"> Feeling sick? OneCare can recommend a specialist </Tooltip>}>
+            <div className='rec-btn'>
+              <Button bsStyle="info" bsSize='small' onClick={this.openModalSymptom}> <div> <i className="fa fa-stethoscope" aria-hidden="true"></i> Recommend </div></Button>
+            </div>
+          </OverlayTrigger>
+          <div className='add-btn'>
+            <i className="fa fa-plus-circle white add" onClick={this.openModalDoctor} aria-hidden="true"></i>
+          </div>
         </div>
               {
                 this.state.doctors.map((doctor, idx) => {
@@ -434,7 +444,7 @@ export default class Profile extends React.Component {
                             <div className="doctor-top-bar">
                               <div className="doc-top-first-half">
                                 <p className='doctor-name'>{doctor.name}</p>
-                                <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip"> Click to edit card.</Tooltip>}>
+                                <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip"> Click to edit card</Tooltip>}>
                                 <div className='edit-icon'>
                                   <i className="fa fa-pencil-square-o pencil" aria-hidden="true" onClick={this.openEditModalDoctor.bind(this,idx)}></i>
                                 </div>
@@ -466,7 +476,7 @@ export default class Profile extends React.Component {
                           </div>
                         </div>
                         <div className='show-notes'>
-                          <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip"> Click to view doctor's notes.</Tooltip>}>
+                          <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip"> Click to view doctor's notes</Tooltip>}>
                             <div className='note-icon'>
                               <i className="fa fa-angle-double-down orange" aria-hidden="true" onClick={this.doctorNotes.bind(this, doctor)}></i>
                             </div>
