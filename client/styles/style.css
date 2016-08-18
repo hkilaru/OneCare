@@ -140,6 +140,16 @@ border: 1px solid transparent;
 border-radius: 4px;
 }
 
+.info {
+  background-color: #d35400;
+  border-radius: 25px;
+  font-size: 12px;
+  display: inline-block;
+  padding-bottom: 20px;
+  font-weight: lighter;
+  height: 15px;
+}
+
 .required {
   color: red;
 }
@@ -256,6 +266,16 @@ border-radius: 4px;
 
 }
 
+.doctor-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete-doc {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 9px;
+}
 
 .note-info {
   display: flex;
@@ -270,6 +290,7 @@ border-radius: 4px;
   padding: 8px;
   font-size: 12px;
   font-weight: lighter;
+  height: 30px;
 }
 
 /*********** SCRIPTS ***********/

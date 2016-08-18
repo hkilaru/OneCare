@@ -417,19 +417,19 @@ export default class Profile extends React.Component {
                       <div className=" doctor-view-container" key={idx}>
                       <div>
                           <button className="doctor-edit" onClick={this.openEditModalDoctor.bind(this,idx)}> Edit Doctor </button>
-                          <div className="doctor-top-bar"><p className='doctor-name'>{doctor.name}</p><i className="fa fa-times" aria-hidden="true" onClick={this.deleteDoc.bind(this, idx)}></i></div>
+                          <div className='delete-doc'><i className="fa fa-times" aria-hidden="true" onClick={this.deleteDoc.bind(this, idx)}></i></div>
+                          <div className="doctor-top-bar"><p className='doctor-name'>{doctor.name}</p><div className='specialty-tag'><i className="fa fa-stethoscope" aria-hidden="true"></i>  {doctor.specialty}</div></div>
                           <div className='doctor-attribute'><i className="fa fa-phone phone-green" aria-hidden="true"></i>  {doctor.phone}</div>
                           <div className='doctor-attribute'><i className="fa fa-envelope" aria-hidden="true"></i>  {doctor.email}</div>
-                          <div className='doctor-attribute'><i className="fa fa-map-marker red" aria-hidden="true"></i>  {doctor.address}</div>
-                          <div className='specialty-tag'><i className="fa fa-stethoscope" aria-hidden="true"></i>  {doctor.specialty}</div>
-                          <div className='doctor-attribute'><div className='note-info'><Button bsStyle="info" bsSize='xsmall' onClick={this.doctorNotes.bind(this, doctor)}> (view notes) </Button> </div>
+                          <div className='doctor-footer'> <div className='doctor-attribute'><i className="fa fa-map-marker red" aria-hidden="true"></i>  {doctor.address}</div><div className='doctor-attribute'><div className='note-info'><Button bsClass="btn info" bsSize='xsmall' onClick={this.doctorNotes.bind(this, doctor)}> (view notes) </Button> </div>
                             <div className={this.state.openNotes.doctor === doctor._id ? "doctor-notes-container" : "hidden"}>
                               {this.state.openNotes.notes.map((note, idx) => (
                                   <div key={idx} className="doctor-notes-entry">{note.body}</div>
                                 )
                               )}
                             </div>
-                          </div>
+                          </div></div>
+
                         </div>
                       </div>
                   );
