@@ -194,10 +194,18 @@ border-radius: 4px;
   padding: 25px;
   margin-right: 15px;
   margin-left: 15px;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   border-radius:2px;
   background-color: #FFFFFF;
   border-radius: 7px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.doctor-view-container:hover{
+  -webkit-transform: scale(1.10, 1.10);
+   transform:translate(-8px,-8px);
 }
 
 
@@ -212,6 +220,22 @@ border-radius: 4px;
   color: white;
   font-weight: lighter;
 
+}
+
+
+.note-info {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.specialty-tag {
+  background-color: #228b22;
+  border-radius: 25px;
+  color: #FFFFFF;
+  display: inline-block;
+  padding: 8px;
+  font-size: 12px;
+  font-weight: lighter;
 }
 
 /*********** SCRIPTS ***********/
@@ -268,10 +292,18 @@ border-radius: 4px;
   padding: 25px;
   margin-right: 15px;
   margin-left: 15px;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   border-radius:2px;
   background-color: #FFFFFF;
   border-radius: 7px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.scripts-view-container:hover{
+  -webkit-transform: scale(1.10, 1.10);
+   transform:translate(-8px,-8px);
 }
 
 .script-name {

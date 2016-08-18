@@ -333,14 +333,14 @@ export default class Profile extends React.Component {
               {
                 this.state.doctors.map((doctor, idx) => {
                   return (
-                      <div className=" doctor-view-container" key={idx }>
+                      <div className=" doctor-view-container" key={idx}>
                       <div>
                           <div className="doctor-top-bar"><p className='doctor-name'>{doctor.name}</p><i className="fa fa-times" aria-hidden="true" onClick={this.deleteDoc.bind(this, idx)}></i></div>
                           <div className='doctor-attribute'><i className="fa fa-phone phone-green" aria-hidden="true"></i>  {doctor.phone}</div>
                           <div className='doctor-attribute'><i className="fa fa-envelope" aria-hidden="true"></i>  {doctor.email}</div>
                           <div className='doctor-attribute'><i className="fa fa-map-marker red" aria-hidden="true"></i>  {doctor.address}</div>
-                          <div className='doctor-attribute'><i className="fa fa-stethoscope" aria-hidden="true"></i>  {doctor.specialty}</div>
-                          <div className='doctor-attribute'><Button bsStyle="info" bsSize='small' onClick={this.doctorNotes.bind(this, doctor)}> (view notes) </Button>
+                          <div className='specialty-tag'><i className="fa fa-stethoscope" aria-hidden="true"></i>  {doctor.specialty}</div>
+                          <div className='doctor-attribute'><div className='note-info'><Button bsStyle="info" bsSize='xsmall' onClick={this.doctorNotes.bind(this, doctor)}> (view notes) </Button> </div>
                             <div className={this.state.openNotes.doctor === doctor._id ? "doctor-notes-container" : "hidden"}>
                               {this.state.openNotes.notes.map((note, idx) => (
                                   <div key={idx} className="doctor-notes-entry">{note.body}</div>
