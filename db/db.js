@@ -48,8 +48,8 @@ var noteSchema = new Schema({
 	seen: Boolean,
 	hidden: Boolean,
 	body: String,
-  user: [{type: Schema.Types.ObjectId, ref: 'User'}],
-  doctor: [{type: Schema.Types.ObjectId, ref: 'Doctor'}]
+  user: {type: Schema.Types.ObjectId, ref: 'User'},
+  doctor: {type: Schema.Types.ObjectId, ref: 'Doctor'}
 })
 
 var symptomSchema = new Schema({

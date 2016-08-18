@@ -9,6 +9,7 @@ import EditScriptRemindModal from './editScript.jsx';
 import Map from './map.jsx';
 import _ from 'lodash';
 import { Modal, Button, ButtonToolbar } from 'react-bootstrap';
+import FlipCard from 'react-flop-card';
 
 import EditDoctorModal from './editDoctor.jsx';
 
@@ -413,22 +414,24 @@ export default class Profile extends React.Component {
               {
                 this.state.doctors.map((doctor, idx) => {
                   return (
-                    <div className=" doctor-view-container" key={idx }>
-                    <button className="doctor-edit" onClick={this.openEditModalDoctor.bind(this,idx)}> Edit Doctor </button>
-                    <div className="doctor-top-bar"><p className='doctor-name'>{doctor.name}</p><i className="fa fa-times" aria-hidden="true" onClick={this.deleteDoc.bind(this, idx)}></i></div>
-                    <div className='doctor-attribute'><i className="fa fa-phone phone-green" aria-hidden="true"></i>  {doctor.phone}</div>
-                    <div className='doctor-attribute'><i className="fa fa-envelope" aria-hidden="true"></i>  {doctor.email}</div>
-                    <div className='doctor-attribute'><i className="fa fa-map-marker red" aria-hidden="true"></i>  {doctor.address}</div>
-                    <div className='doctor-attribute'><i className="fa fa-stethoscope" aria-hidden="true"></i>  {doctor.specialty}</div>
-                    <div className='doctor-attribute'><Button bsStyle="info" bsSize='small' onClick={this.doctorNotes.bind(this, doctor)}> (view notes) </Button>
-                      <div className={this.state.openNotes.doctor === doctor._id ? "doctor-notes-container" : "hidden"}>
-                        {this.state.openNotes.notes.map((note, idx) => (
-                            <div key={idx} className="doctor-notes-entry">{note.body}</div>
-                          )
-                        )}
+                      <div className=" doctor-view-container" key={idx }>
+                      <div>
+                          <button className="doctor-edit" onClick={this.openEditModalDoctor.bind(this,idx)}> Edit Doctor </button>
+                          <div className="doctor-top-bar"><p className='doctor-name'>{doctor.name}</p><i className="fa fa-times" aria-hidden="true" onClick={this.deleteDoc.bind(this, idx)}></i></div>
+                          <div className='doctor-attribute'><i className="fa fa-phone phone-green" aria-hidden="true"></i>  {doctor.phone}</div>
+                          <div className='doctor-attribute'><i className="fa fa-envelope" aria-hidden="true"></i>  {doctor.email}</div>
+                          <div className='doctor-attribute'><i className="fa fa-map-marker red" aria-hidden="true"></i>  {doctor.address}</div>
+                          <div className='doctor-attribute'><i className="fa fa-stethoscope" aria-hidden="true"></i>  {doctor.specialty}</div>
+                          <div className='doctor-attribute'><Button bsStyle="info" bsSize='small' onClick={this.doctorNotes.bind(this, doctor)}> (view notes) </Button>
+                            <div className={this.state.openNotes.doctor === doctor._id ? "doctor-notes-container" : "hidden"}>
+                              {this.state.openNotes.notes.map((note, idx) => (
+                                  <div key={idx} className="doctor-notes-entry">{note.body}</div>
+                                )
+                              )}
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    </div>
                   );
                 }, this)
               }
