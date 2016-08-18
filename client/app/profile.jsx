@@ -395,8 +395,7 @@ export default class Profile extends React.Component {
               this.state.scripts.map((script, idx) => {
                 return (
                   <div className="scripts-view-container" key={idx}>
-                  <button onClick={this.openEditModalScript.bind(this,idx)}> Edit Script </button>
-                  <div className="script-top-bar"><div><p className="script-name"> {script.name}</p>{/* <a target="_blank" href={"https://simple.wikipedia.org/wiki/" + script.name}>(get more info)</a>*/}</div><i className="fa fa-times" aria-hidden="true" onClick={this.deleteScript.bind(this, idx)}></i></div>
+                  <div className="script-top-bar"><div className="doc-top-first-half"><p className="script-name"> {script.name}</p><div className='edit-icon'><i className="fa fa-pencil-square-o pencil" aria-hidden="true" onClick={this.openEditModalScript.bind(this,idx)}></i></div>{/* <a target="_blank" href={"https://simple.wikipedia.org/wiki/" + script.name}>(get more info)</a>*/}</div><i className="fa fa-times" aria-hidden="true" onClick={this.deleteScript.bind(this, idx)}></i></div>
                   <div className='script-attribute'> <i className="fa fa-heart red" aria-hidden="true"></i> Dosage: {script.dosage} </div>
                   <div className='script-attribute'> <i className="fa fa-bell gold" aria-hidden="true"></i> Reminder: {script.frequency} </div>
                   <div className='script-attribute'> <i className="fa fa-calendar royal-blue" aria-hidden="true"></i> Refill: {String(new Date(script.refill)).split('').slice(0, 15).join('')} </div>
@@ -416,11 +415,10 @@ export default class Profile extends React.Component {
                   return (
                       <div className=" doctor-view-container" key={idx}>
                       <div>
-                          <button className="doctor-edit" onClick={this.openEditModalDoctor.bind(this,idx)}> Edit Doctor </button>
                           <div className='delete-doc'><i className="fa fa-times" aria-hidden="true" onClick={this.deleteDoc.bind(this, idx)}></i></div>
-                          <div className="doctor-top-bar"><p className='doctor-name'>{doctor.name}</p><div className='specialty-tag'><i className="fa fa-stethoscope" aria-hidden="true"></i>  {doctor.specialty}</div></div>
+                          <div className="doctor-top-bar"><div className="doc-top-first-half"><p className='doctor-name'>{doctor.name}</p><div className='edit-icon'><i className="fa fa-pencil-square-o pencil" aria-hidden="true" onClick={this.openEditModalDoctor.bind(this,idx)}></i></div></div><div className='specialty-tag'><i className="fa fa-stethoscope" aria-hidden="true"></i> {doctor.specialty}</div></div>
                           <div className='doctor-attribute'><i className="fa fa-phone phone-green" aria-hidden="true"></i>  {doctor.phone}</div>
-                          <div className='doctor-attribute'><i className="fa fa-envelope" aria-hidden="true"></i>  {doctor.email}</div>
+                          <div className='doctor-attribute'><i className="fa fa-envelope envelope" aria-hidden="true"></i>  {doctor.email}</div>
                           <div className='doctor-footer'> <div className='doctor-attribute'><i className="fa fa-map-marker red" aria-hidden="true"></i>  {doctor.address}</div><div className='doctor-attribute'><div className='note-info'><Button bsClass="btn info" bsSize='xsmall' onClick={this.doctorNotes.bind(this, doctor)}> (view notes) </Button> </div>
                             <div className={this.state.openNotes.doctor === doctor._id ? "doctor-notes-container" : "hidden"}>
                               {this.state.openNotes.notes.map((note, idx) => (

@@ -82,6 +82,7 @@ input {
 
 /* END OF COLORS */
 
+/* GENERAL (NOT APPLICABLE TO ONE PARTICULAR COMPONENT) */
 
 .topName {
   color: yellow;
@@ -113,9 +114,6 @@ input {
   right: 10px;
 }
 
-.orange {
-  background-color: #d35400;
-}
 
 .btn {
 color: #FFFFFF;
@@ -166,22 +164,27 @@ border-radius: 4px;
   border-radius: 50%;
 }
 
-.profile-container {
-  padding-left: 10px;
-}
-
-.dosageInput {
-  margin-top: 10px;
-  width: 210px;
-}
 .remindBtn {
   margin-top: 10px;
+}
+
+.envelope {
+  padding-right: 2px;
+}
+
+.pencil {
+  padding-left: 10px;
+  padding-top: 14px;
+}
+.edit-icon {
+  font-size: 18px;
 }
 
 /* PROFILE */
 
 .profile-container {
   background-color: #D8D8D8;
+  padding-left: 10px;
 }
 
 /********* DOCTORS *********/
@@ -205,6 +208,10 @@ border-radius: 4px;
   margin-left: 5px;
   font-size: 14pt;
   font-weight: bold;
+}
+
+.doc-top-first-half {
+  display: inline-flex;
 }
 
 .doctor-input {
@@ -387,6 +394,11 @@ border-radius: 4px;
 .script-form-fields {
   display: flex;
   flex-flow: row nowrap;
+}
+
+.dosageInput {
+  margin-top: 10px;
+  width: 210px;
 }
 
 /******** NAVIGATION ********/

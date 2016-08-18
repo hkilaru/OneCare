@@ -60956,21 +60956,21 @@
 	                'div',
 	                { className: 'scripts-view-container', key: idx },
 	                _react2.default.createElement(
-	                  'button',
-	                  { onClick: _this2.openEditModalScript.bind(_this2, idx) },
-	                  ' Edit Script '
-	                ),
-	                _react2.default.createElement(
 	                  'div',
 	                  { className: 'script-top-bar' },
 	                  _react2.default.createElement(
 	                    'div',
-	                    null,
+	                    { className: 'doc-top-first-half' },
 	                    _react2.default.createElement(
 	                      'p',
 	                      { className: 'script-name' },
 	                      ' ',
 	                      script.name
+	                    ),
+	                    _react2.default.createElement(
+	                      'div',
+	                      { className: 'edit-icon' },
+	                      _react2.default.createElement('i', { className: 'fa fa-pencil-square-o pencil', 'aria-hidden': 'true', onClick: _this2.openEditModalScript.bind(_this2, idx) })
 	                    )
 	                  ),
 	                  _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true', onClick: _this2.deleteScript.bind(_this2, idx) })
@@ -61050,11 +61050,6 @@
 	                  'div',
 	                  null,
 	                  _react2.default.createElement(
-	                    'button',
-	                    { className: 'doctor-edit', onClick: _this2.openEditModalDoctor.bind(_this2, idx) },
-	                    ' Edit Doctor '
-	                  ),
-	                  _react2.default.createElement(
 	                    'div',
 	                    { className: 'delete-doc' },
 	                    _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true', onClick: _this2.deleteDoc.bind(_this2, idx) })
@@ -61063,15 +61058,24 @@
 	                    'div',
 	                    { className: 'doctor-top-bar' },
 	                    _react2.default.createElement(
-	                      'p',
-	                      { className: 'doctor-name' },
-	                      doctor.name
+	                      'div',
+	                      { className: 'doc-top-first-half' },
+	                      _react2.default.createElement(
+	                        'p',
+	                        { className: 'doctor-name' },
+	                        doctor.name
+	                      ),
+	                      _react2.default.createElement(
+	                        'div',
+	                        { className: 'edit-icon' },
+	                        _react2.default.createElement('i', { className: 'fa fa-pencil-square-o pencil', 'aria-hidden': 'true', onClick: _this2.openEditModalDoctor.bind(_this2, idx) })
+	                      )
 	                    ),
 	                    _react2.default.createElement(
 	                      'div',
 	                      { className: 'specialty-tag' },
 	                      _react2.default.createElement('i', { className: 'fa fa-stethoscope', 'aria-hidden': 'true' }),
-	                      '  ',
+	                      ' ',
 	                      doctor.specialty
 	                    )
 	                  ),
@@ -61085,7 +61089,7 @@
 	                  _react2.default.createElement(
 	                    'div',
 	                    { className: 'doctor-attribute' },
-	                    _react2.default.createElement('i', { className: 'fa fa-envelope', 'aria-hidden': 'true' }),
+	                    _react2.default.createElement('i', { className: 'fa fa-envelope envelope', 'aria-hidden': 'true' }),
 	                    '  ',
 	                    doctor.email
 	                  ),
