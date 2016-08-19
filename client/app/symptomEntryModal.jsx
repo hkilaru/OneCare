@@ -113,38 +113,52 @@ export default class SymptomEntryModal extends React.Component {
     return(
       <div>
         <div className={this.state.cloak ? 'hidden' : '' +" recommend-modal-container"}>
-          <h3 className="title modal-header">Your Selected Symptoms:</h3>
+          <div className='modal-button-close' onClick={this.props.closeFn}><i className="fa fa-times-circle white" aria-hidden="true"></i></div>
+          <div className="symptom-modal-header">
+            <div> Symptoms</div>
+          </div>
             <div className="modal-symptom-container">
             {
             this.props.symptoms.map((symptom) => {
               return (
                   <div key={symptom.id} className="modal-symptom-entry">
-                    <div>{symptom.name}</div>
+                    <i className="fa fa-arrow-right" aria-hidden="true"></i> <div className='symptom-name'>{symptom.name}</div>
                   </div>
                 )
               })
             }
           </div>
-          <h4>We recommend:</h4>
+          <div className='we-rec'>
+            We recommend...
+          </div>
             <div className={this.state.currentRec && this.state.currentRec.id === 1000 ? '' : 'hidden'}>We're glad to have been of assistance!</div>
             <div className={this.state.isInRolodex ? '' : 'hidden'}>
               <DoctorView
-                name={this.state.currentRec ? this.state.currentRec.name : ''} 
+                name={this.state.currentRec ? this.state.currentRec.name : ''}
                 phone={this.state.currentRec ? this.state.currentRec.phone : ''}
                 email={this.state.currentRec ? this.state.currentRec.email : ''}
                 address={this.state.currentRec ? this.state.currentRec.address : ''}
                 specialty={this.state.currentRec ? this.state.currentRec.specialty : ''} />
             </div>
-            <div className={this.state.currentRec && this.state.currentRec.id !== 1000 && !this.state.isInRolodex ? '' : 'hidden'}>
-              <h3>Oops...</h3>
-              <div>We were about to recommend your <strong>{this.state.currentRec ? this.state.currentRec.name : '**empty**'}</strong>, but it appears you do not have one listed.  <Link to='/newdoctor'>Click here to register a new {this.state.currentRec ? this.state.currentRec.name : '**empty**'}!</Link></div>
-              <div>Or, click below to find some {this.state.currentRec ? this.state.currentRec.name : '**empty**'}s near you!</div>
-              <Button onClick={this.drx} bsStyle='primary' bsSize='small'>Find {this.state.currentRec ? this.state.currentRec.name : '**empty**'}s</Button>
-              {this.state.drxs.map((doctrx, i) => <DRXView closeFn={this.props.closeFn} zipcode={this.props.zipcode} info={doctrx}/>)}
+            <div className='doc-recommendation-container'>
+              <div className={this.state.currentRec && this.state.currentRec.id !== 1000 && !this.state.isInRolodex ? '' : 'hidden'}>
+                <div className='doc-rec'>
+                  <h2>{this.state.currentRec ? this.state.currentRec.name : '**empty**'}</h2>
+                </div>
+                {/* <div>We were about to recommend your <strong>{this.state.currentRec ? this.state.currentRec.name : '**empty**'}</strong>, but it appears you do not have one listed. </div> */}
+                <div className='post-rec-options'>
+                  <div className='register-new-doc'> <Link to='/newdoctor'>Click here to register a new {this.state.currentRec ? this.state.currentRec.name : '**empty**'}!</Link> </div>
+                  {/* <div>Or click below to find nearby {this.state.currentRec ? this.state.currentRec.name : '**empty**'}s</div> */}
+                  <div className='find-doc-btn'>
+                    <Button onClick={this.drx} bsStyle='success' bsSize='small'>Find Nearby {this.state.currentRec ? this.state.currentRec.name : '**empty**'}s</Button>
+                  </div>
+                </div>
+                {this.state.drxs.map((doctrx, i) => <DRXView closeFn={this.props.closeFn} zipcode={this.props.zipcode} info={doctrx}/>)}
+              </div>
             </div>
           <div className="symptom-modal-voting">
-            <span className={(this.state.currentRec && this.state.currentRec.id !== 1000 ? '' : 'hidden')+' modal-button'} onClick={this.upvote}><i className="fa fa-thumbs-o-up" aria-hidden="true"></i></span>
-            <span className={(this.state.currentRec && this.state.currentRec.id !== 1000 ? '' : 'hidden')+' modal-button'} onClick={this.downvote}><i className="fa fa-thumbs-o-down" aria-hidden="true"></i></span>
+            <span className={(this.state.currentRec && this.state.currentRec.id !== 1000 ? '' : 'hidden')+' modal-button upvote'} onClick={this.upvote}><i className="fa fa-thumbs-o-up" aria-hidden="true"></i></span>
+            <span className={(this.state.currentRec && this.state.currentRec.id !== 1000 ? '' : 'hidden')+' modal-button downvote'} onClick={this.downvote}><i className="fa fa-thumbs-o-down" aria-hidden="true"></i></span>
           </div>
         </div>
       </div>

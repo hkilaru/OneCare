@@ -153,6 +153,7 @@ border-radius: 4px;
   color: #00B300;
 }
 
+
 .info {
   background-color: #d35400;
   border-radius: 25px;
@@ -318,9 +319,6 @@ border-radius: 4px;
   padding-right: 8px;
 }
 
-
-
-
 .specialty-tag {
   background-color: #228b22;
   border-radius: 25px;
@@ -431,6 +429,88 @@ border-radius: 4px;
 .dosageInput {
   margin-top: 10px;
   width: 210px;
+}
+
+
+/******** SYMPTOM ENTRY *******/
+
+.close-modal {
+  display: flex;
+  justify-content: flex-end;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: 24px;
+}
+.recommend-modal-container {
+  background-color: #2c3e50;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 5px;
+}
+.symptom-container{
+
+}
+.symptom-modal-header {
+  display: flex;
+  justify-content: center;
+  background-color: #2c3e50;
+  color: #FFFFFF;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  font-size: 40px
+}
+
+
+.modal-symptom-container {
+  padding-left: 20px;
+  font-size: 20px;
+}
+
+.symptom-name {
+  margin-left: 5px;
+}
+
+.we-rec {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 20px;
+}
+
+.modal-symptom-entry{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.doc-recommendation-container {
+  margin-left: 10px;
+}
+
+.doc-rec {
+  text-align: center;
+}
+
+.post-rec-options {
+  text-align: center;
+}
+.find-doc-btn {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.register-new-doc {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+}
+
+.upvote {
+  background-color: #228b22;
+}
+
+.downvote {
+  background-color: #CD0000;
 }
 
 /******** NAVIGATION ********/
@@ -683,20 +763,20 @@ border-radius: 4px;
 }
 
 .modal-content {
+  display: inline-block;
   background-color: #2c3e50;
   color: #ffffff;
 }
 
 .modal-button {
   display:flex;
-  width: 100px;
-  height: 100px;
+  width: 45px;
+  height: 45px;
   justify-content: center;
-  background-color: blue;
   border-radius: 50%;
   margin: 10px;
-  padding: 20px;
-  font-size: 60px;
+  padding-top: 8px;
+  font-size: 30px;
   color: white;
 }
 
@@ -715,6 +795,7 @@ border-radius: 4px;
   display: flex;
   justify-content: center;
   background-color: #2c3e50;
+  padding: 20px;
 }
 
 .modal-button-close-container {
@@ -730,6 +811,11 @@ border-radius: 4px;
   border-radius: 50%;
   justify-content: flex-end;
   margin: 10px;
+  font-size: 24px;
+}
+
+.modal-button-close:hover{
+  color: #CD0000;
 }
 
 /*.STYLES FOR PRINTING BRAIN*/

@@ -166,7 +166,7 @@ app.get('/api/note/getAll/*', function(req, res) {
   var doctorID = ObjectId(req.url.split('/').pop());
   dbHelpers.getNotes(doctorID, res);
 });
-  
+
 // fun learning exp!
 // var yelp = new Yelp({
 //   consumer_key: '1GCGSst4AI3oOk0DnqltxA',

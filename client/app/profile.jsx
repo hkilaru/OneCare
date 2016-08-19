@@ -386,10 +386,10 @@ export default class Profile extends React.Component {
         </Modal>
 
         <Modal show={this.state.symptomModalIsOpen} style={this.state.modalStyles}>
-            <div className="modal-button-close-container">
+            {/* <div className="modal-button-close-container">
               <div className='modal-button-close' onClick={this.closeModalSymptom}><i className="fa fa-times-circle" aria-hidden="true"></i></div>
-            </div>
-            <SymptomEntry 
+            </div> */}
+            <SymptomEntry
             zipcode={this.state.zipcode}
             closeFn={this.closeModalSymptom} />
         </Modal>
