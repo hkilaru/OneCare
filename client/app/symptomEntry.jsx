@@ -213,8 +213,10 @@ export default class SymptomEntryView extends Component {
     return (
       <div className="symptom-container">
         <div className={!this.state.modalIsOpen ? "" : "hidden"}>
-          <div className='modal-button-close' onClick={this.props.closeFn}><i className="fa fa-times-circle" aria-hidden="true"></i></div>
-          <h4>Please select your symptoms from the list below.</h4>
+          <div className='symptom-select-header'>
+            <h4>Please select your symptoms from the list below.</h4>
+            <div className='modal-button-close' onClick={this.props.closeFn}><i className="fa fa-times-circle" aria-hidden="true"></i></div>
+          </div>
           <FilteredMultiSelect
             classNames={{
               buttonActive: 'symptom-select-button--active',

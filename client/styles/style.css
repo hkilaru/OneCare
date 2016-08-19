@@ -365,7 +365,7 @@ border-radius: 4px;
 .scripts-doctors {
   display: flex;
   justify-content: center;
-  background-color: #ecf0f1;
+  background-color: #2c3e50;
 }
 .scripts-container {
   float:left;
@@ -373,7 +373,7 @@ border-radius: 4px;
   margin-top: 10px;
   margin-right: 20px;
   padding: 10px;
-  background-color: #e74c3c;
+  background-color: #4ccead;
   border-radius: 7px;
    padding:5px;
 }
@@ -442,6 +442,10 @@ border-radius: 4px;
 
 /******** SYMPTOM ENTRY *******/
 
+.symptom-select-header{
+  display: flex;
+  justify-content: space-between;
+}
 .close-modal {
   display: flex;
   justify-content: flex-end;
@@ -563,7 +567,6 @@ border-radius: 4px;
 
 .navbar-container {
   border-radius:2px;
-  border:1px solid black;
   background-color: #2c3e50;
   display: flex;
   justify-content: space-between;
