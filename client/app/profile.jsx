@@ -536,7 +536,7 @@ export default class Profile extends React.Component {
                               !note.hidden
                             ))
                             .map((note, idx) => (
-                            <div key={idx} className={"doctor-notes-entry" + (note.seen ? "" : " highlight")}>
+                            <div key={idx} className={"doctor-notes-entry" + (note.seen ? "" : " phone-green")}>
                               <span className="note-delete"><i className="fa fa-trash" aria-hidden="true" onClick={this.hideNote.bind(this, note)}></i></span>
                               {note.body}
                             </div>

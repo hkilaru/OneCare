@@ -36,15 +36,13 @@ export default class DoctorView extends React.Component {
 
   render() {
     return (
-      <div className="doctor-view-container">
-        <div className="doctor-name"> {this.props.name}</div><a target="_blank" href={this.state.url}>(get more info)</a>
-        <div><span className="doctor-attribute">Phone: </span>{this.props.phone}</div>
-        <div><span className="doctor-attribute">Email: </span>{this.props.email}</div>
-        <div><span className="doctor-attribute">Address: </span>{this.props.address}</div>
-        <div><span className="doctor-attribute">Specialty: </span>{this.props.specialty}</div>
-        <button onClick={this.deleteDoc.bind(this, this.props.id)}>Delete</button>
+      <div className="doctor-view-container-rec">
+        <div className="doctor-name black"> {this.props.name}</div>
+        <div className="doctor-attribute black"><i className="fa fa-phone phone-green" aria-hidden="true"></i> {this.props.phone}</div>
+        <div className="doctor-attribute black"><i className="fa fa-envelope envelope black" aria-hidden="true"></i> {this.props.email}</div>
+        <div className="doctor-attribute black"><i className="fa fa-map-marker red" aria-hidden="true"></i> {this.props.address}</div>
+        <div className="doctor-attribute black"><i className="fa fa-stethoscope black" aria-hidden="true"></i> {this.props.specialty}</div>
       </div>
     );
   }
 }
-

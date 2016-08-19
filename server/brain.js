@@ -1,7 +1,7 @@
 var synaptic = require('synaptic');
 var _ = require("lodash");
 var Model = require("../db/db.js");
-var ObjectId = require('mongoose').Types.ObjectId; 
+var ObjectId = require('mongoose').Types.ObjectId;
 var dbHelpers = require('../db/dbhelper.js');
 
 var Brain = function() {
@@ -9,7 +9,7 @@ var Brain = function() {
   var ACTIVATION_SPLIT = .005;
 
   var DOCTORS = [
-    {id: 1, name: 'Allergologist'}, 
+    {id: 1, name: 'Allergologist'},
     {id: 2, name: 'Andrologist'},
     {id: 3, name: 'Anesthesiologist'},
     {id: 4, name: 'Angiologist‎'},
@@ -32,7 +32,7 @@ var Brain = function() {
     {id: 21, name: 'Obstetrician'},
     {id: 22, name: 'Oncologist'},
     {id: 23, name: 'Ophthalmologist'},
-    {id: 24, name: 'Ear, nose, and Throat Doctor'},
+    {id: 24, name: 'Ear, Nose, and Throat Doctor'},
     {id: 25, name: 'Palliative Medical Expert'},
     {id: 26, name: 'Pediatrician‎'},
     {id: 27, name: 'Podiatrist'},
@@ -178,7 +178,7 @@ var SYMPTOMS = [
 
   loadBrain();
 
-  //let's give our brain a trainer.  
+  //let's give our brain a trainer.
   var BrainTrain = new synaptic.Trainer(OneCareNeural);
 
   //function that takes an array of symptom objects and returns an array
@@ -307,7 +307,7 @@ var SYMPTOMS = [
     network: OneCareNeural,
     trainer: BrainTrain,
     addTrainingPair: addTrainingPair,
-    train: trainMyBrain, 
+    train: trainMyBrain,
     activate: activateMyBrain,
     save: saveBrain,
     delete: resetBrain,

@@ -56244,7 +56244,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var DOCTORS = [{ id: 1, name: 'Allergologist' }, { id: 2, name: 'Andrologist' }, { id: 3, name: 'Anesthesiologist' }, { id: 4, name: 'Angiologist‎' }, { id: 5, name: 'Cardiologist' }, { id: 6, name: 'Dentist' }, { id: 7, name: 'Dermatologist‎' }, { id: 8, name: 'Emergency Medicine‎ Specialist' }, { id: 9, name: 'Endocrinology‎' }, { id: 10, name: 'Family Medicine‎ Specialist' }, { id: 11, name: 'Gastroenterologist‎' }, { id: 12, name: 'General practitioner' }, { id: 13, name: 'Geriatrician' }, { id: 14, name: 'Gynaecologist' }, { id: 15, name: 'Hematologist' }, { id: 16, name: 'Hepatologyist' }, { id: 17, name: 'Immunologist‎' }, { id: 18, name: 'Internal Medical Specialist' }, { id: 19, name: 'Nephrologist‎' }, { id: 20, name: 'Neurologist' }, { id: 21, name: 'Obstetrician' }, { id: 22, name: 'Oncologist' }, { id: 23, name: 'Ophthalmologist' }, { id: 24, name: 'Ear, nose, and Throat Doctor' }, { id: 25, name: 'Palliative Medical Expert' }, { id: 26, name: 'Pediatrician‎' }, { id: 27, name: 'Podiatrist' }, { id: 28, name: 'Psychiatrist' }, { id: 29, name: 'Pulmonologist' }, { id: 30, name: 'Radiologist' }, { id: 31, name: 'Rheumatologist‎' }, { id: 32, name: 'Expert in Sleep Medicine‎' }, { id: 33, name: 'Surgeon‎' }, { id: 34, name: 'Toxicologist' }, { id: 35, name: 'Urologist' }];
+	var DOCTORS = [{ id: 1, name: 'Allergologist' }, { id: 2, name: 'Andrologist' }, { id: 3, name: 'Anesthesiologist' }, { id: 4, name: 'Angiologist‎' }, { id: 5, name: 'Cardiologist' }, { id: 6, name: 'Dentist' }, { id: 7, name: 'Dermatologist‎' }, { id: 8, name: 'Emergency Medicine‎ Specialist' }, { id: 9, name: 'Endocrinology‎' }, { id: 10, name: 'Family Medicine‎ Specialist' }, { id: 11, name: 'Gastroenterologist‎' }, { id: 12, name: 'General practitioner' }, { id: 13, name: 'Geriatrician' }, { id: 14, name: 'Gynaecologist' }, { id: 15, name: 'Hematologist' }, { id: 16, name: 'Hepatologyist' }, { id: 17, name: 'Immunologist‎' }, { id: 18, name: 'Internal Medical Specialist' }, { id: 19, name: 'Nephrologist‎' }, { id: 20, name: 'Neurologist' }, { id: 21, name: 'Obstetrician' }, { id: 22, name: 'Oncologist' }, { id: 23, name: 'Ophthalmologist' }, { id: 24, name: 'Ear, Nose, and Throat Doctor' }, { id: 25, name: 'Palliative Medical Expert' }, { id: 26, name: 'Pediatrician‎' }, { id: 27, name: 'Podiatrist' }, { id: 28, name: 'Psychiatrist' }, { id: 29, name: 'Pulmonologist' }, { id: 30, name: 'Radiologist' }, { id: 31, name: 'Rheumatologist‎' }, { id: 32, name: 'Expert in Sleep Medicine‎' }, { id: 33, name: 'Surgeon‎' }, { id: 34, name: 'Toxicologist' }, { id: 35, name: 'Urologist' }];
 
 	var DoctorEntryView = function (_React$Component) {
 	  _inherits(DoctorEntryView, _React$Component);
@@ -58575,7 +58575,7 @@
 	          { className: !this.state.modalIsOpen ? "" : "hidden" },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'modal-button-close', onClick: this.closeModalSymptom },
+	            { className: 'modal-button-close', onClick: this.props.closeFn },
 	            _react2.default.createElement('i', { className: 'fa fa-times-circle', 'aria-hidden': 'true' })
 	          ),
 	          _react2.default.createElement(
@@ -59184,25 +59184,25 @@
 	                    this.state.currentRec ? this.state.currentRec.name : '**empty**',
 	                    's'
 	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'symptom-modal-voting' },
+	                  _react2.default.createElement(
+	                    'span',
+	                    { className: (this.state.currentRec && this.state.currentRec.id !== 1000 ? '' : 'hidden') + ' modal-button upvote', onClick: this.upvote },
+	                    _react2.default.createElement('i', { className: 'fa fa-thumbs-o-up', 'aria-hidden': 'true' })
+	                  ),
+	                  _react2.default.createElement(
+	                    'span',
+	                    { className: (this.state.currentRec && this.state.currentRec.id !== 1000 ? '' : 'hidden') + ' modal-button downvote', onClick: this.downvote },
+	                    _react2.default.createElement('i', { className: 'fa fa-thumbs-o-down', 'aria-hidden': 'true' })
+	                  )
 	                )
 	              ),
 	              this.state.drxs.map(function (doctrx, i) {
 	                return _react2.default.createElement(_DRXView2.default, { closeFn: _this2.props.closeFn, zipcode: _this2.props.zipcode, info: doctrx });
 	              })
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'symptom-modal-voting' },
-	            _react2.default.createElement(
-	              'span',
-	              { className: (this.state.currentRec && this.state.currentRec.id !== 1000 ? '' : 'hidden') + ' modal-button upvote', onClick: this.upvote },
-	              _react2.default.createElement('i', { className: 'fa fa-thumbs-o-up', 'aria-hidden': 'true' })
-	            ),
-	            _react2.default.createElement(
-	              'span',
-	              { className: (this.state.currentRec && this.state.currentRec.id !== 1000 ? '' : 'hidden') + ' modal-button downvote', onClick: this.downvote },
-	              _react2.default.createElement('i', { className: 'fa fa-thumbs-o-down', 'aria-hidden': 'true' })
 	            )
 	          )
 	        )
@@ -59283,62 +59283,40 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "doctor-view-container" },
+	        { className: "doctor-view-container-rec" },
 	        _react2.default.createElement(
 	          "div",
-	          { className: "doctor-name" },
+	          { className: "doctor-name black" },
 	          " ",
 	          this.props.name
 	        ),
 	        _react2.default.createElement(
-	          "a",
-	          { target: "_blank", href: this.state.url },
-	          "(get more info)"
-	        ),
-	        _react2.default.createElement(
 	          "div",
-	          null,
-	          _react2.default.createElement(
-	            "span",
-	            { className: "doctor-attribute" },
-	            "Phone: "
-	          ),
+	          { className: "doctor-attribute black" },
+	          _react2.default.createElement("i", { className: "fa fa-phone phone-green", "aria-hidden": "true" }),
+	          " ",
 	          this.props.phone
 	        ),
 	        _react2.default.createElement(
 	          "div",
-	          null,
-	          _react2.default.createElement(
-	            "span",
-	            { className: "doctor-attribute" },
-	            "Email: "
-	          ),
+	          { className: "doctor-attribute black" },
+	          _react2.default.createElement("i", { className: "fa fa-envelope envelope black", "aria-hidden": "true" }),
+	          " ",
 	          this.props.email
 	        ),
 	        _react2.default.createElement(
 	          "div",
-	          null,
-	          _react2.default.createElement(
-	            "span",
-	            { className: "doctor-attribute" },
-	            "Address: "
-	          ),
+	          { className: "doctor-attribute black" },
+	          _react2.default.createElement("i", { className: "fa fa-map-marker red", "aria-hidden": "true" }),
+	          " ",
 	          this.props.address
 	        ),
 	        _react2.default.createElement(
 	          "div",
-	          null,
-	          _react2.default.createElement(
-	            "span",
-	            { className: "doctor-attribute" },
-	            "Specialty: "
-	          ),
+	          { className: "doctor-attribute black" },
+	          _react2.default.createElement("i", { className: "fa fa-stethoscope black", "aria-hidden": "true" }),
+	          " ",
 	          this.props.specialty
-	        ),
-	        _react2.default.createElement(
-	          "button",
-	          { onClick: this.deleteDoc.bind(this, this.props.id) },
-	          "Delete"
 	        )
 	      );
 	    }
@@ -60374,13 +60352,32 @@
 	    // this.yalp = this.yalp.bind(this);
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DRXView).call(this, props));
 
+	    _this.state = {
+	      starsArray: []
+	    };
+
 	    _this.findDrx = _this.findDrx.bind(_this);
+	    _this.createStars = _this.createStars.bind(_this);
+
 	    return _this;
 	  }
 
 	  _createClass(DRXView, [{
-	    key: 'findDrx',
-
+	    key: 'createStars',
+	    value: function createStars() {
+	      var stars = [];
+	      for (var i = 0; i < this.props.info.ratings[0].rating; i++) {
+	        stars.push("star");
+	      }
+	      this.setState({
+	        starsArray: stars
+	      });
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.createStars();
+	    }
 
 	    // no longer needed :(
 	    // yalp() {
@@ -60400,6 +60397,8 @@
 	    //   });
 	    // }
 
+	  }, {
+	    key: 'findDrx',
 	    value: function findDrx() {
 	      var npiUrl = 'https://api.betterdoctor.com/2016-03-01/doctors/npi/' + this.props.info.npi + '?user_key=87b39c90783391ac6ce972736d117741';
 	      console.log(npiUrl);
@@ -60452,39 +60451,49 @@
 	        { className: 'card-wrap' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'profile_pic-wrap' },
-	          _react2.default.createElement('img', { src: this.props.info.profile.image_url, alt: '' })
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          null,
+	          { className: 'profile-pic-description' },
 	          _react2.default.createElement(
-	            _reactBootstrap.Button,
-	            { onClick: this.findDrx, bsStyle: 'primary', bsSize: 'xsmall' },
-	            'SAVE TO ROLODEX'
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement(
-	            'p',
-	            null,
-	            this.props.info.ratings[0] ? this.props.info.ratings[0].rating + ' stars' : 'No rating found'
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'info-wrap' },
-	          _react2.default.createElement(
-	            'h3',
-	            { className: 'user-name' },
-	            this.props.info.profile.first_name + ' ' + this.props.info.profile.last_name
+	            'div',
+	            { className: 'profile-pic-container' },
+	            _react2.default.createElement('img', { className: 'profile-pic', src: this.props.info.profile.image_url, alt: '' })
 	          ),
 	          _react2.default.createElement(
-	            'p',
+	            'div',
+	            { className: 'info-container' },
+	            _react2.default.createElement(
+	              'h3',
+	              { className: 'user-name' },
+	              this.props.info.profile.first_name + ' ' + this.props.info.profile.last_name
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              this.props.info.profile.bio
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'rating-save' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'rating gold-star' },
+	            this.state.starsArray.map(function (star, idx) {
+	              return _react2.default.createElement(
+	                'div',
+	                { key: idx },
+	                _react2.default.createElement('i', { className: 'fa fa-star', 'aria-hidden': 'true' })
+	              );
+	            })
+	          ),
+	          _react2.default.createElement(
+	            'div',
 	            null,
-	            this.props.info.profile.bio
+	            _react2.default.createElement(
+	              _reactBootstrap.Button,
+	              { onClick: this.findDrx, bsStyle: 'primary', bsSize: 'xsmall' },
+	              'Save to My Doctors'
+	            )
 	          )
 	        )
 	      );
@@ -61311,7 +61320,7 @@
 	                  }).map(function (note, idx) {
 	                    return _react2.default.createElement(
 	                      'div',
-	                      { key: idx, className: "doctor-notes-entry" + (note.seen ? "" : " highlight") },
+	                      { key: idx, className: "doctor-notes-entry" + (note.seen ? "" : " phone-green") },
 	                      _react2.default.createElement(
 	                        'span',
 	                        { className: 'note-delete' },
