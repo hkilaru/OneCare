@@ -10,14 +10,23 @@ var config = {
     path: BUILD_DIR,
     filename: 'bundle.js'
   },
+  debug: true,
   module: {
     loaders: [
       {
         test: /\.jsx?/,
         include: APP_DIR,
-        loader: 'babel'
+        // Don't run node_modules or bower_components through babel loader
+        excudel: /(node_modules|bower_components)/,
+        loader: 'babel',
+        query: {
+          presets: ['es2015', 'react']
+        }
       }
     ]
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
   }
 };
 

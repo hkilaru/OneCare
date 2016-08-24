@@ -1,33 +1,64 @@
-import React, { Component } from 'react';
-import DoctorView from './doctorView.jsx'
+// for some reason calling DoctorListView.getDocs() would close the modal on doctor entryview and rerender and update
+// the homepage
 
-export default class DoctorListView extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      doctors: []
-    }
-    this.makeDocs = this.makeDocs.bind(this);
-  }
+// need to investigate why this is so
 
-  makeDocs(doctors) {
-    this.setState({doctors: doctors});
-  }
-
-  componentDidMount() {
-    $.get("/api/doctor/find", this.makeDocs)
-  }
-
-  render() {
-    return (
-      <div className="doctor-list-view">
-        {
-         this.state.doctors.map((doctor, idx) => {
-          return (<DoctorView key={idx} name={doctor.name} phone={doctor.phone} fax={doctor.fax} address={doctor.address} specialty={doctor.specialty} />)
-         }, this)
-        }
-      </div>
-    )
-  }
-
-}
+//
+//
+//
+// import React, { Component } from 'react';
+// import DoctorView from './doctorView.jsx'
+// import Navigate from './navigate.jsx';
+//
+//
+// export default class DoctorListView extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       doctors: []
+//     };
+//     this.getDocs = this.getDocs.bind(this);
+//   }
+//
+//
+//   getDocs() {
+//
+//     $.ajax({
+//       type: 'POST',
+//       url: '/api/doctors/get',
+//       headers: {
+//         "content-type": "application/json"
+//       },
+//       data: JSON.stringify({"username": window.localStorage.username}),
+//       success: function(docs) {
+//         console.log("DOCTORS", docs);
+//         this.setState({
+//           doctors: docs
+//         });
+//       }.bind(this),
+//       error: function(err) {
+//         console.log('I can\'t pill you...not today', err);
+//       }
+//     });
+//   }
+//
+//
+//   componentDidMount() {
+//     this.getDocs();
+//   }
+//
+//   render() {
+//     var { doctors } = this.state;
+//     return (
+//
+//       <div className="doctor-list-view">
+//         {
+//          doctors.map((doctor, idx) => {
+//           return (<DoctorView key={idx} id={doctor._id} name={doctor.name} phone={doctor.phone} email={doctor.email} address={doctor.address} specialty={doctor.specialty} />)
+//          }, this)
+//         }
+//       </div>
+//     );
+//   }
+//
+// }

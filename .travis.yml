@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+- '6'
+- '6.1'
+- '5.11'
+- '5.7'
+env:
+- CXX=g++-4.8
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
+deploy:
+  provider: heroku
+  api_key:
+    secure: TzXiDf61bDRE6posdeEsK5GqpSPKmtVmyULOm3tBKDK0/KTRV4nG3IGtuX7YEmWTa046YQ5u84rv8XGia8dBS1+pBad6Zb9NTC7SERgJjNoY4SFsScaLL4ILHlgDwCLBu8gMfOLvzP/wFC567Dff96dNQVcvjso2t95QZeim1QZjuZuwaQbTh2rmmjSS37bXwzzqBJRbkY4v4q19vYfVYY3WXlaZV/Iy89G6yrckUZGpYt68HeSTbHkfoJmUmPmIElFiF8468KW7IRgO7Q+tN33n6Hr6z38DH/s/tRYJR3xi8gK+lhfvV8zKh9gyMgkV/qEOWhMLW9VLNrAs/p0x0vluImLbV71wFEW3yfTisnUZiyAIcUirssz/LFCxnNMYxlCfFFJaDFYnbqqQmyZeSh1EEixz+734tWWiyzAHd/N0NS0yx5O1NohKYsr3M/VfQPsPq6f9Tfvefn6QSHbEj7B2ry0O1InNQGnRF4nFUHK+gyhWo6SHYEHkHTmLTDCu1NA0HhfVSTAmRbjWdrdI2QgY/WRBJLDAlGxflYxOc+d2oC7lXq9nOv/nfw66UiOLEkPoQNAKLkR2GEFfE8OnT+bkhsaSE9PzlS3YGqU84sQj78hvymlEDK/2W90EN4SPozv/VwWweidg6ie8yLd3A0JrPwCzP2UnSP2lnkv9sf8=
+  app: OneCore

@@ -1,154 +1,169 @@
 import React, { Component } from 'react';
-// import $ from 'jquery';
+import $ from 'jquery';
+import Navigate from './navigate.jsx';
+import Modal from 'react-modal';
+import { Button } from 'react-bootstrap';
+
+  var DOCTORS = [
+    {id: 1, name: 'Allergologist'},
+    {id: 2, name: 'Andrologist'},
+    {id: 3, name: 'Anesthesiologist'},
+    {id: 4, name: 'Angiologist‎'},
+    {id: 5, name: 'Cardiologist'},
+    {id: 6, name: 'Dentist'},
+    {id: 7, name: 'Dermatologist‎'},
+    {id: 8, name: 'Emergency Medicine‎ Specialist'},
+    {id: 9, name: 'Endocrinology‎'},
+    {id: 10, name: 'Family Medicine‎ Specialist'},
+    {id: 11, name: 'Gastroenterologist‎'},
+    {id: 12, name: 'General practitioner'},
+    {id: 13, name: 'Geriatrician'},
+    {id: 14, name: 'Gynaecologist'},
+    {id: 15, name: 'Hematologist'},
+    {id: 16, name: 'Hepatologyist'},
+    {id: 17, name: 'Immunologist‎'},
+    {id: 18, name: 'Internal Medical Specialist'},
+    {id: 19, name: 'Nephrologist‎'},
+    {id: 20, name: 'Neurologist'},
+    {id: 21, name: 'Obstetrician'},
+    {id: 22, name: 'Oncologist'},
+    {id: 23, name: 'Ophthalmologist'},
+    {id: 24, name: 'Ear, Nose, and Throat Doctor'},
+    {id: 25, name: 'Palliative Medical Expert'},
+    {id: 26, name: 'Pediatrician‎'},
+    {id: 27, name: 'Podiatrist'},
+    {id: 28, name: 'Psychiatrist'},
+    {id: 29, name: 'Pulmonologist'},
+    {id: 30, name: 'Radiologist'},
+    {id: 31, name: 'Rheumatologist‎'},
+    {id: 32, name: 'Expert in Sleep Medicine‎'},
+    {id: 33, name: 'Surgeon‎'},
+    {id: 34, name: 'Toxicologist'},
+    {id: 35, name: 'Urologist'}
+  ];
+
 
 export default class DoctorEntryView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // user: {
-      //   username: window.localStorage.get("username") || "default",
-      //   userId: window.localStorage.get("userId") || "default"
-      // },
+      modalIsOpen: true,
       name: "",
       phone: "",
-      fax: "",
+      email: "",
       address: "",
-      specialty: ""
-    }
-    this.handleChange = this.handleChange.bind(this);
+      specialty: "",
+      //validation
+      phoneIsValid: false,
+      specialtyIsValid: false,
+      nameIsValid: false,
+      emailIsValid: false,
+      formIsValid: true
+    };
     this.submitNewDoctor = this.submitNewDoctor.bind(this);
+    this.handlePhone = this.handlePhone.bind(this);
+    this.handleSpecialty = this.handleSpecialty.bind(this);
+    this.handleName = this.handleName.bind(this);
+    this.handleEmail = this.handleEmail.bind(this);
+    this.handleAddress = this.handleAddress.bind(this);
   }
 
-  handleChange(event) {
-    var stateVal = event.target.id;
-    if (stateVal === "name") {
-      this.setState({name: event.target.value});
-    } else if (stateVal === "phone") {
-      this.setState({phone: event.target.value});
-    } else if (stateVal === "fax") {
-      this.setState({fax: event.target.value});
-    } else if (stateVal === "address") {
-      this.setState({address: event.target.value});
-    } else if (stateVal === "specialty") {
-      this.setState({specialty: event.target.value});
+  handlePhone(e) {
+    this.setState({phone: e.target.value});
+    if (e.target.value.match(/\d/g).length===11) {
+      this.setState({phoneIsValid: true});
+    } else {
+      this.setState({phoneIsValid: false});
     }
   }
-  submitNewDoctor(formData) {
-    console.log("this.state is: ", this.state);
-    $.ajax({
-      type: "POST",
-      url: "/api/doctor/add",
-      headers: {
-        "content-type": "application/json"
-      },
-      data: JSON.stringify(this.state)
-    })
-    .then(function(res) {
-      console.log("Doctor registration success!  ");
-    })
-    .catch(function(err) {
-      console.error("Doctor not registered.  ", err);
-    });
+
+  handleSpecialty(e) {
+    this.setState({specialty: e.target.value})
+    if (e.target.value !== "::Select Specialty::") {
+      this.setState({specialtyIsValid: true});
+    } else {
+      this.setState({specialtyIsValid: false});
+    }
+  }
+
+  handleName(e) {
+    this.setState({name: e.target.value})
+    if (e.target.value.length > 2) {
+      this.setState({nameIsValid: true});
+    } else {
+      this.setState({nameIsValid: false});
+    }
+
+  }
+
+  handleEmail(e) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    this.setState({email: e.target.value});
+    if (re.test(e.target.value)) {
+      this.setState({emailIsValid: true});
+    } else {
+      this.setState({emailIsValid: false});
+    }
+
+  }
+
+  handleAddress(e) {
+    this.setState({address: e.target.value})
+  }
+
+  submitNewDoctor(e) {
+    e.preventDefault();
+    if(!this.state.nameIsValid || !this.state.phoneIsValid || !this.state.emailIsValid || !this.state.specialtyIsValid){
+      this.setState({formIsValid: false})
+    } else {
+      var toSubmit = { "username": window.localStorage.username, "first_last": window.localStorage.first_last, "userID": window.localStorage.userID, "doc": {
+        name: this.state.name,
+        phone: this.state.phone,
+        email: this.state.email,
+        address: this.state.address,
+        specialty: this.state.specialty
+      }};
+
+      $.ajax({
+        type: "POST",
+        url: "/api/doctor/add",
+        headers: {
+          "content-type": "application/json"
+        },
+        data: JSON.stringify(toSubmit),
+        success: this.props.closeFn(),
+        error: this.props.closeFn()
+      });
+    }
   }
   render() {
     return (
-      <div className="doctor-input">
-      <h2>Input a new doctor!</h2>
-        <form>
-          <span>Name</span><input id="name" type="text" onChange={this.handleChange} />
-          <span>Phone</span><input id="phone" type="text" onChange={this.handleChange}></input><br />
-          <span>Fax</span><input id="fax" type="text" onChange={this.handleChange}></input><br />
-          <span>Address</span><input id="address" type="text" onChange={this.handleChange}></input><br />
-          <span>Specialty</span><select id="specialty" onChange={this.handleChange}>
-            <option>::Select Specialty::</option>
-            <option>A</option>
-            <option>Allergology‎ </option>
-            <option>Andrology‎ </option>
-            <option>Anesthesia‎ </option>
-            <option>Angiology‎ </option>
-            <option>Aviation medicine‎ </option>
-            <option>B</option>
-            <option>Biomedicine‎ </option>
-            <option>C</option>
-            <option>Cardiology‎ </option>
-            <option>D</option>
-            <option>Dentistry‎ </option>
-            <option>Dentistry branches‎ </option>
-            <option>Dermatology‎ </option>
-            <option>Disaster medicine‎ </option>
-            <option>Sports physicians‎ </option>
-            <option>E</option>
-            <option>Emergency medicine‎ </option>
-            <option>Endocrinology‎ </option>
-            <option>F</option>
-            <option>Family medicine‎ </option>
-            <option>Fictional medical specialists‎ </option>
-            <option>G</option>
-            <option>Gastroenterology‎ </option>
-            <option>General practice‎ </option>
-            <option>Medical genetics‎ </option>
-            <option>Geriatrics‎ </option>
-            <option>Gerontology‎ </option>
-            <option>Gynaecology‎ </option>
-            <option>H</option>
-            <option>Hematology‎ </option>
-            <option>Hepatology‎ </option>
-            <option>I</option>
-            <option>Immunology‎ </option>
-            <option>Infectious diseases‎ </option>
-            <option>Intensive care medicine‎ </option>
-            <option>Internal medicine‎ </option>
-            <option>M</option>
-            <option>Men's health‎ </option>
-            <option>Military medicine‎ </option>
-            <option>N</option>
-            <option>Nephrology‎ </option>
-            <option>Neurology‎ </option>
-            <option>Nuclear medicine‎ </option>
-            <option>O</option>
-            <option>Obstetrics‎ </option>
-            <option>Oncology‎ </option>
-            <option>Ophthalmology‎ </option>
-            <option>Otorhinolaryngology‎ </option>
-            <option>P</option>
-            <option>Palliative medicine‎ </option>
-            <option>Pathology‎ </option>
-            <option>Pediatrics‎ </option>
-            <option>Podiatry‎ </option>
-            <option>Preventive medicine‎ </option>
-            <option>Prison medicine‎ </option>
-            <option>Psychiatric specialities‎ </option>
-            <option>Psychiatry‎ </option>
-            <option>Pulmonology‎ </option>
-            <option>R</option>
-            <option>Radiology‎ </option>
-            <option>Rehabilitation medicine‎ </option>
-            <option>Rheumatology‎ </option>
-            <option>S</option>
-            <option>Serology‎ </option>
-            <option>Sexual health‎ </option>
-            <option>Sleep medicine‎ </option>
-            <option>Space medicine‎ </option>
-            <option>Sports medicine‎ </option>
-            <option>Surgery‎ </option>
-            <option>Surgical specialties‎ </option>
-            <option>T</option>
-            <option>Toxicology‎ </option>
-            <option>Transplantation medicine‎ </option>
-            <option>Trichology‎ </option>
-            <option>Tropical medicine‎ </option>
-            <option>U</option>
-            <option>Urology‎ </option>
-            <option>W</option>
-            <option>Wilderness medicine‎ </option>
+      <div className="script-form-frame">
+        {/* <Navigate /> */}
+        <div className="doctor-entry-form">
+          <div>Name</div><input id="name" type="text" onChange={this.handleName} />
+          <div className={this.state.nameIsValid ? "hidden" : "invalid"}> Name must be at least 2 characters </div>
+          <div>Phone</div><input id="phone" type="text" onChange={this.handlePhone}></input><br />
+          <div className={this.state.phoneIsValid ? "hidden" : "invalid"}> Phone numbers must be 11 digits long </div>
+          <div>Email</div><input id="email" type="text" onChange={this.handleEmail}></input><br />
+          <div className={this.state.emailIsValid ? "hidden" : "invalid"}> Please enter a valid email </div>
+          <h6 className="invalid"> (Your doctor will receive an email from OneCare) </h6>
+          <div>Address</div><input id="address" type="text" onChange={this.handleAddress}></input><br />
+          <div>Specialty</div><select id="specialty" onChange={this.handleSpecialty}>
+            <option>None Selected</option>
+            {
+              DOCTORS.map((doctor) => {
+                return (
+                  <option key={doctor.id} >{doctor.name}</option>
+                );
+              })
+            }
           </select>
-          <button onClick={this.submitNewDoctor}>Submit!</button>
-        </form>
-        <hr />
-        <div>
-          <h3>Your current doctors: </h3>
+          <div className={this.state.specialtyIsValid ? "hidden" : "invalid"}> Select a specialty </div>
+          <Button bsStyle='info' onClick={this.submitNewDoctor}>Save Doctor</Button>
+          <h6 className={(this.state.formIsValid ? 'hidden' : 'invalid')}> Some of your data is invalid.  Please check above. </h6>
         </div>
       </div>
-    )
+    );
   }
 }
