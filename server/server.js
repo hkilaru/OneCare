@@ -65,6 +65,7 @@ app.post('/api/reminder/delete', function(req, res){
 });
 
 app.post('/api/script/find', function(req, res) {
+  console.log("request received at findScripts");
   var username = req.body.username;
   dbHelpers.getScripts( username, res);
 });
